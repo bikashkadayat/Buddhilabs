@@ -7,15 +7,15 @@ legal adviser before removing the banner and publishing.
 ## 1. Company details to insert (both pages)
 - [ ] Legal company name (as registered)
 - [ ] Company registration number and registering authority
-- [ ] Registered office address
-- [ ] Official contact email for legal/privacy matters
-- [ ] Phone number (privacy page contact section)
+- [~] Registered office address – New Baneshwar, Kathmandu, Nepal supplied (confirm it is the registered address)
+- [ ] Official contact email for legal/privacy matters – **currently salesbuddhilabs@gmail.com is shown as the fallback; a dedicated privacy email is recommended** (set `contact.privacyEmail` in business-config.js)
+- [x] Phone number (privacy page contact section) – +977 9705811712 supplied
 - [ ] Effective date and review date
 
 ## 2. Privacy Policy (privacy.html)
 - [ ] Confirm the categories of personal data actually collected (form fields, server logs, analytics)
 - [ ] Confirm the basis for processing wording against applicable law in Nepal and any other markets served
-- [ ] List all third-party services in use: hosting provider, form provider (Formspree/Netlify/own backend), email provider, Google Analytics / Tag Manager, reCAPTCHA, Clarity/Meta Pixel if enabled
+- [ ] List all third-party services in use (currently: GitHub Pages hosting, Google Fonts, Formspree once enabled): hosting provider, form provider (Formspree/Netlify/own backend), email provider, Google Analytics / Tag Manager, reCAPTCHA, Clarity/Meta Pixel if enabled
 - [ ] Define data retention periods for enquiries and logs
 - [ ] Cookie policy: which cookies are set, purposes, and whether a consent banner is required for your audience
 - [ ] Review the implemented consent banner (accept / reject / manage, analytics off by default, choice stored in the

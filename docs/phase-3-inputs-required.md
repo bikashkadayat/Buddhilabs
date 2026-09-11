@@ -1,7 +1,6 @@
 # Phase 3 – Inputs required from Buddhi Labs
 
-Status of every real-world value needed for production. **No value below has been supplied yet**; nothing was
-invented. Placeholders on the site remain visible until the "Current Value" column is filled and the change is applied.
+Status of every real-world value needed for production. Values marked Provided were supplied by the business owner on 2026-09-11 and applied via `assets/js/business-config.js`; nothing was invented. Placeholders on the site remain visible until the "Current Value" column is filled and the change is applied.
 Send values to the developer or edit the file(s) in the last column.
 
 Status legend: **Missing** = not provided · **Provided** = received and applied · **N/A** = not applicable
@@ -12,14 +11,14 @@ Status legend: **Missing** = not provided · **Provided** = received and applied
 |----------|---------------|---------------|--------|------------------|
 | Company | Official legal company name | `[TO BE CONFIRMED: Legal Company Name]` | Missing | privacy.html, terms.html, index.html JSON-LD |
 | Company | Company registration number (if publicly displayed) | `[TO BE CONFIRMED: Company Registration Details]` | Missing | privacy.html, terms.html |
-| Company | Official domain name | `https://www.buddhilabs.com` (placeholder) | Missing | all *.html (canonical/OG/JSON-LD), sitemap.xml, robots.txt, site-config.js, docker/nginx.conf CSP, docker-compose.prod.yml |
-| Company | Office address | `[TO BE CONFIRMED: Office Address]` | Missing | site-config.js `ADDRESS`; privacy.html, terms.html |
+| Company | Official domain name | `https://buddhilabs.bikashkadayat.com.np` | Provided | all *.html, sitemap.xml, robots.txt, CNAME, business-config.js (change via `npm run set-domain`) |
+| Company | Office address | New Baneshwar, Kathmandu, Nepal | Provided | business-config.js `company.address` |
 | Company | City and country | Kathmandu, Nepal | Provided | footer, contact, JSON-LD |
-| Company | Business hours | `[TO BE CONFIRMED: Business Hours]` | Missing | site-config.js `BUSINESS_HOURS` |
-| Company | Official sales email | `[TO BE CONFIRMED: Official Email]` | Missing | site-config.js `SALES_EMAIL`; backend `.env` `NOTIFY_EMAIL_TO` |
-| Company | Official support email | `[TO BE CONFIRMED: Support Email]` | Missing | site-config.js `SUPPORT_EMAIL` |
-| Company | Official phone number | `[TO BE CONFIRMED: Phone Number]` | Missing | site-config.js `PHONE`, `PHONE_DISPLAY` |
-| Company | WhatsApp number (only if available) | – | Missing | site-config.js `WHATSAPP` |
+| Company | Business hours | 10:00 AM – 5:00 PM | Provided | business-config.js `company.businessHours` |
+| Company | Official sales email | salesbuddhilabs@gmail.com | Provided | business-config.js `contact.salesEmail` |
+| Company | Official support email | supportbuddhilabs@gmail.com | Provided | business-config.js `contact.supportEmail` |
+| Company | Official phone number | +977 9705811712 | Provided | business-config.js `contact.phone` |
+| Company | WhatsApp number | +977 9705811712 (wa.me/9779705811712) | Provided | business-config.js `contact.whatsapp` |
 | Company | Google Maps URL or embed code | – (map placeholder shown) | Missing | site-config.js `GOOGLE_MAPS_EMBED_URL` |
 
 ## Social profiles (icons stay hidden until a URL is set)
@@ -65,9 +64,9 @@ Status legend: **Missing** = not provided · **Provided** = received and applied
 
 | Category | Required Item | Current Value | Status | File(s) Affected |
 |----------|---------------|---------------|--------|------------------|
-| Form | Chosen contact-form method (Formspree / Netlify / Node backend / FastAPI) | `FORM_PROVIDER: 'none'` (demonstration mode) | Missing (decision) | site-config.js |
-| Form | Formspree form ID OR backend endpoint | – | Missing | site-config.js `CONTACT_FORM_ENDPOINT` |
-| Form | Recipient sales email | – | Missing | backend `.env` `NOTIFY_EMAIL_TO` or provider dashboard |
+| Form | Chosen contact-form method | Formspree | Provided | business-config.js `form.provider` |
+| Form | Formspree endpoint (https://formspree.io/f/FORM_ID) | – (form in safe demo mode) | Missing | business-config.js `form.endpoint` |
+| Form | Recipient email | kadayatxbikash2008@gmail.com (owner); salesbuddhilabs@gmail.com recommended for leads | Provided | Formspree dashboard |
 | Form | Recipient support email | – | Missing | site-config.js `SUPPORT_EMAIL` |
 | Form | SMTP provider details (only if Node backend is used) | – | Missing | backend `.env` `SMTP_*` (server only) |
 | Form | PostgreSQL decision (only if Node backend is used) | SQLite default | Missing (decision) | backend `.env` `DATABASE_URL`, docker-compose.prod.yml |
@@ -78,7 +77,7 @@ Status legend: **Missing** = not provided · **Provided** = received and applied
 | Analytics | Meta Pixel ID (optional) | – | Missing | site-config.js `META_PIXEL_ID` |
 | Analytics | Cookie-consent requirement for target markets (legal decision) | banner implemented, shown when any tracker is configured | Missing (legal review) | docs/legal-review-checklist.md |
 | Security | reCAPTCHA v3 site key + secret key (optional) | – | Missing | site-config.js `RECAPTCHA_SITE_KEY`; backend `.env` `RECAPTCHA_SECRET_KEY` |
-| Hosting | Hosting provider / VPS access details | – | Missing | docs/deployment-checklist.md |
+| Hosting | Hosting provider | GitHub Pages (workflow ready; owner must enable Pages, add DNS CNAME, enforce HTTPS) | Provided | .github/workflows/deploy-pages.yml, CNAME |
 | Hosting | Domain DNS access details | – | Missing | docs/deployment-checklist.md |
 | Hosting | Domain email DNS (MX/SPF/DKIM/DMARC) if using domain email | – | Missing | DNS provider |
 

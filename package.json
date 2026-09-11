@@ -8,7 +8,9 @@
     "build:css": "tailwindcss -i ./assets/css/input.css -o ./assets/css/site.min.css --minify",
     "build:js": "esbuild assets/js/main.js assets/js/contact-form.js --minify --outdir=assets/js --out-extension:.js=.min.js --log-level=warning",
     "build": "npm run build:css && npm run build:js",
-    "serve": "python3 -m http.server 8000"
+    "serve": "python3 -m http.server 8000",
+    "set-domain": "node scripts/set-domain.js",
+    "build:site": "node scripts/build-site.mjs"
   },
   "devDependencies": {
     "esbuild": "^0.24.0",

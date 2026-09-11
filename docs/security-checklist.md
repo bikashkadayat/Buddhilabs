@@ -26,9 +26,14 @@
 If the API runs on a different origin (e.g. `api.buddhilabs.com`), add it to `connect-src`.
 Test with the browser console after enabling each third-party service; a blocked resource shows a CSP error.
 
+## GitHub Pages (current deployment)
+- [x] Static only: no backend, database, SMTP or secrets are involved; the artifact (`scripts/build-site.mjs`) refuses to include `.env*`, `backend/`, `reference/`, `docs/`, Docker files or `*.example`.
+- [x] HTTPS is provided by GitHub Pages once the custom domain is validated ("Enforce HTTPS").
+- [ ] Custom response headers (CSP etc.) are **not** supported on GitHub Pages; the nginx configuration applies only to the optional VPS deployment. Third-party sources in use: Google Fonts, Formspree (when enabled).
+
 ## Secrets and configuration
 - [x] `.env`, `backend/.env`, `*.db` and `node_modules` are in `.gitignore`; `.env.example` files contain placeholders only.
-- [x] `assets/js/site-config.js` holds **public** values only (IDs and endpoints that are visible in any browser anyway). Never put SMTP passwords, database URLs, reCAPTCHA secret keys or API tokens there.
+- [x] `assets/js/business-config.js` (and the `site-config.js` adapter) hold **public** values only (IDs and endpoints that are visible in any browser anyway). Never put SMTP passwords, database URLs, reCAPTCHA secret keys or API tokens there.
 - [x] Docker image excludes `docs/`, `reference/`, `backend/`, `scripts/`, compose files and env files (`.dockerignore` + Dockerfile copy list).
 - [ ] Rotate `POSTGRES_PASSWORD`, SMTP and reCAPTCHA secrets if they were ever pasted into a chat, ticket or commit.
 

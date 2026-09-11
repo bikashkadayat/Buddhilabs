@@ -57,7 +57,8 @@ buddhi-labs/
 │   ├── css/input.css           Tailwind directives + design-system CSS (source)
 │   ├── css/site.min.css        Compiled, minified CSS (committed; npm run build)
 │   ├── js/
-│   │   ├── site-config.js      ← EDIT THIS: form provider, contact details, analytics IDs (public values only)
+│   │   ├── business-config.js  ← EDIT THIS: all public business values (no secrets)
+│   │   ├── site-config.js      adapter (do not edit)
 │   │   ├── main.js / main.min.js            Menu, consent banner, consent-gated analytics, tracking, config fill
 │   │   └── contact-form.js / contact-form.min.js  Validation + provider submission
 │   ├── brand/                  Official logo + derived favicons / OG image (see "Logo")
@@ -120,18 +121,39 @@ Leads are stored in `backend/data/leads.db` (SQLite). For Docker, uncomment the 
 
 ## 4. Customization guide
 
-**Start with `assets/js/site-config.js`.** It holds the form provider, contact details, social URLs and analytics
-IDs. Values left empty keep the site in a safe launch-ready state: `[TO BE CONFIRMED: …]` placeholders stay visible,
-social icons stay hidden, no tracking loads and the contact form stays in demonstration mode.
+**Start with `assets/js/business-config.js`** – the single public configuration file (company details, contact
+links, social URLs, form provider/endpoint, analytics IDs, product decisions). `assets/js/site-config.js` is only an
+adapter and must not be edited. Values left empty keep the site in a safe state: `[TO BE CONFIRMED: …]` placeholders stay
+visible, optional blocks (social icons, WhatsApp, map) stay hidden, no tracking loads and the contact form stays in
+demonstration mode. **Public vs private:** anything in `business-config.js` is downloaded by every visitor – never put
+API keys, SMTP passwords, database URLs or CAPTCHA secret keys there; those belong in `.env` / `backend/.env`
+(git-ignored; templates in `.env.example` and `backend/.env.example`).
+
+### Public domain
+The canonical domain is `https://buddhilabs.bikashkadayat.com.np`. To change it everywhere (canonical/OG tags, JSON-LD,
+sitemap.xml, robots.txt, CNAME, business-config.js, env examples, docs) run:
+```bash
+npm run set-domain -- https://www.your-domain.com
+npm run build
+```
+The script accepts only an https:// site root, refuses invalid URLs, never touches `.env` files or dependencies, and
+prints the list of files it changed. Search engines do not reliably read metadata inserted by JavaScript, so the domain is
+written into the static files at build time rather than at runtime.
+
+### Deployment (current): GitHub Pages
+See **docs/github-pages-deployment.md**. `npm run build:site` assembles the public artifact in `_site/`; the workflow in
+`.github/workflows/deploy-pages.yml` builds and deploys it on every push to `main`. `CNAME` holds the custom domain.
+Docker, the backend and PostgreSQL remain optional (docs/deployment-checklist.md) and are not required for Pages.
+
 
 
 | What | Where |
 |---|---|
 | **Logo** | Official raster files live in `assets/brand/` (see "Logo" below). To update, replace `buddhi-labs-logo.png` and regenerate the derived files with the same crops; keep `width`/`height` attributes on the header/footer `<img>` in the same aspect ratio. |
 | **Brand colors / fonts** | `assets/js/tailwind.config.js` (Tailwind `primary`/`accent`/`gray` scales) and the `:root` variables at the top of `assets/css/styles.css`. Keep both in sync. Values are documented under "Brand color system". |
-| **Domain** | Search-and-replace `www.buddhilabs.com` in all HTML files, `sitemap.xml`, `robots.txt`. |
-| **Contact details** | `assets/js/site-config.js` (`SALES_EMAIL`, `SUPPORT_EMAIL`, `PHONE`, `ADDRESS`, `BUSINESS_HOURS`, `GOOGLE_MAPS_EMBED_URL`). Placeholders in privacy/terms are edited directly. |
-| **Social links** | `site-config.js` → `SOCIAL`; footer icons appear automatically. |
+| **Domain** | Search-and-replace `buddhilabs.bikashkadayat.com.np` in all HTML files, `sitemap.xml`, `robots.txt`. |
+| **Contact details** | `assets/js/business-config.js` → `company` and `contact` (sales/support/privacy email, phone, WhatsApp, address, hours, maps URL). Legal pages pick up the same values via `data-contact` / `data-company` hooks. |
+| **Social links** | `business-config.js` → `social`; footer icons appear only for https URLs. |
 | **Product copy / screenshots** | `hrms.html`, `ev-risk-intelligence.html`, `products.html`. Replace `assets/images/products/hrms-dashboard.svg` and `ev-dashboard.svg` with real screenshots or embed a video where the `<!-- Replace ... -->` comments are. |
 | **Services copy** | `services.html`. |
 | **Team, testimonials, client logos** | `about.html` team cards are placeholders; testimonials and logo strips are intentionally absent until real, approved content exists (docs/content-to-confirm.md). |
@@ -139,10 +161,10 @@ social icons stay hidden, no tracking loads and the contact form stays in demons
 | **Map** | `contact.html`, replace the placeholder image with a Google Maps `<iframe>` (comment shows how). |
 
 ### Connecting the contact form
-Set `FORM_PROVIDER` and `CONTACT_FORM_ENDPOINT` in `assets/js/site-config.js`. Supported: `custom` (included backend), `formspree`, `netlify`. Until then the form is in demonstration mode and never fakes a success. Full guide: **docs/contact-form-integration.md**.
+Set `form.provider` and `form.endpoint` in `assets/js/business-config.js`. Supported: `formspree` (selected; see **docs/formspree-setup.md**), `netlify`, `custom-api` (included backend). Until a valid endpoint exists the form is in demonstration mode and never fakes a success. Full guide: **docs/contact-form-integration.md**.
 
 ### Analytics & Search Console
-Enter `GA4_MEASUREMENT_ID` / `GTM_CONTAINER_ID` (optionally Clarity, Meta Pixel) in `site-config.js`; scripts load only when set. Search Console verification tag is commented in every `<head>`. Events emitted: `request_demo_click`, `hrms_demo_click`, `ev_risk_demo_click`, `service_inquiry_click`, `contact_form_*`, `phone_click`, `email_click`. Guide: **docs/analytics-setup.md**.
+Enter `analytics.ga4MeasurementId` / `gtmContainerId` (optionally Clarity, Meta Pixel, Search Console token) in `business-config.js`; scripts load only when set **and** the visitor accepts analytics cookies. Search Console verification tag is commented in every `<head>`. Events emitted: `request_demo_click`, `hrms_demo_click`, `ev_risk_demo_click`, `service_inquiry_click`, `contact_form_*`, `phone_click`, `email_click`. Guide: **docs/analytics-setup.md**.
 
 ### Tailwind build (production)
 Tailwind runs as a build step: `tailwind.config.js` scans all HTML and the two JS files; `assets/css/input.css` holds the directives plus the design-system CSS; `npm run build:css` writes the minified `assets/css/site.min.css`. If you add a utility class only inside JavaScript strings, list it in `scripts/safelist.txt`.
@@ -263,9 +285,15 @@ Semantic states: success uses the accent scale (`#D3F2EB` background, `#0B4A41` 
 | `docs/testimonial-and-client-logo-policy.md` | Permission, attribution, approval and removal rules |
 | `docs/security-checklist.md` | Headers, CSP allow-list, secrets, backend and transport checks |
 | `docs/go-live-checklist.md` | Launch checkboxes |
-| `docs/final-production-qa-report.md` | Phase 3 production QA results and go-live recommendation |
+| `docs/final-production-qa-report.md` | Production QA results and go-live recommendation |
+| `docs/launch-settings-template.md` | Fill-in template of every launch value (public + private) |
+| `docs/formspree-setup.md` | Activating the Formspree endpoint |
+| `docs/github-pages-deployment.md` | GitHub Pages + custom domain + DNS steps |
 
-## 8. Content policy
+## 8. Files that must never be committed
+`.env`, `backend/.env`, `*.db`, `backend/data/`, `node_modules/`, `_site/` (build output) – all listed in `.gitignore`. `.env.example` files contain placeholders only.
+
+## 9. Content policy
 No fabricated clients, testimonials, statistics, certifications or unverified product capabilities appear on the site. Product features use "integration-ready", "based on implementation scope" and "subject to available data sources" wording until capabilities are confirmed. Unknown business details appear as `[TO BE CONFIRMED: …]`.
 # Buddhilabs
 # Buddhilabs

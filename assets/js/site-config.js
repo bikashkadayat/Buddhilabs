@@ -1,48 +1,41 @@
 /* =====================================================================
-   Buddhi Labs – Site configuration
+   Buddhi Labs – runtime adapter (do not edit values here)
    ---------------------------------------------------------------------
-   This is the ONLY file you need to edit to connect the website to real
-   services. It is loaded on every page before the other scripts.
-   Leave a value empty ('') to keep that feature disabled.
-
-   See docs/contact-form-integration.md and docs/analytics-setup.md.
-   The same keys are listed in .env.example for server-side use.
+   All public business values live in assets/js/business-config.js.
+   This file maps that nested structure to the flat window.BUDDHI_CONFIG
+   object consumed by main.js and contact-form.js, and applies safe
+   defaults so every page works even if business-config.js is empty.
    ===================================================================== */
-window.BUDDHI_CONFIG = {
-  /* ---- Domain (also replace in <link rel="canonical">, sitemap.xml, robots.txt) ---- */
-  SITE_URL: 'https://www.buddhilabs.com',
-
-  /* ---- Contact form ----
-     FORM_PROVIDER: 'none' | 'custom' | 'formspree' | 'netlify'
-       none      – demonstration mode: no submission is attempted, a notice is shown
-       custom    – POST JSON to CONTACT_FORM_ENDPOINT (e.g. '/api/contact', see /backend)
-       formspree – POST JSON to your Formspree endpoint, e.g. 'https://formspree.io/f/xxxxxxxx'
-       netlify   – POST form-encoded data to '/' (Netlify Forms; add data-netlify="true" is handled automatically) */
-  FORM_PROVIDER: 'none',
-  CONTACT_FORM_ENDPOINT: '',
-  RECAPTCHA_SITE_KEY: '',          // Google reCAPTCHA v3 site key (optional)
-
-  /* ---- Contact details (shown in header/footer/contact page when set) ---- */
-  SALES_EMAIL: '',                 // e.g. 'sales@buddhilabs.com'
-  SUPPORT_EMAIL: '',               // e.g. 'support@buddhilabs.com'
-  PHONE: '',                       // e.g. '+977-1-XXXXXXX'
-  PHONE_DISPLAY: '',               // e.g. '+977-1-XXX XXXX'
-  WHATSAPP: '',                    // e.g. '9779800000000' (digits only, optional)
-  ADDRESS: '',                     // e.g. 'Street, Ward, Kathmandu 44600, Nepal'
-  BUSINESS_HOURS: '',              // e.g. 'Sunday – Friday, 9:00 – 18:00 NPT'
-  GOOGLE_MAPS_EMBED_URL: '',       // Google Maps "Embed a map" iframe src
-
-  /* ---- Social profiles (icons are hidden until a URL is set) ---- */
-  SOCIAL: {
-    linkedin: '',
-    facebook: '',
-    x: '',
-    youtube: ''
-  },
-
-  /* ---- Analytics (scripts are only injected when an ID is present) ---- */
-  GA4_MEASUREMENT_ID: '',          // e.g. 'G-XXXXXXXXXX'
-  GTM_CONTAINER_ID: '',            // e.g. 'GTM-XXXXXXX'
-  CLARITY_PROJECT_ID: '',          // Microsoft Clarity (optional)
-  META_PIXEL_ID: ''                // Meta Pixel (optional)
-};
+(function () {
+  var b = window.BUDDHI_LABS_CONFIG || {};
+  var co = b.company || {}, ct = b.contact || {}, so = b.social || {}, fo = b.form || {}, an = b.analytics || {};
+  var providerMap = { demo: 'none', none: 'none', formspree: 'formspree', netlify: 'netlify', 'custom-api': 'custom', custom: 'custom' };
+  var digits = function (v) { return String(v || '').replace(/[^\d]/g, ''); };
+  window.BUDDHI_CONFIG = {
+    SITE_URL: co.canonicalUrl || co.domain || '',
+    COMPANY_NAME: co.displayName || 'Buddhi Labs',
+    LEGAL_NAME: co.legalName || '',
+    REGISTRATION_NUMBER: co.registrationNumber || '',
+    CITY: co.city || '', COUNTRY: co.country || '',
+    FORM_PROVIDER: providerMap[String(fo.provider || 'demo').toLowerCase()] || 'none',
+    CONTACT_FORM_ENDPOINT: fo.endpoint || '',
+    RECAPTCHA_SITE_KEY: fo.recaptchaSiteKey || '',
+    TURNSTILE_SITE_KEY: fo.turnstileSiteKey || '',
+    SALES_EMAIL: ct.salesEmail || '',
+    SUPPORT_EMAIL: ct.supportEmail || '',
+    PRIVACY_EMAIL: ct.privacyEmail || '',
+    PHONE: ct.phone || '',
+    PHONE_DISPLAY: ct.phoneDisplay || ct.phone || '',
+    WHATSAPP: digits(ct.whatsapp),
+    ADDRESS: ct.address || co.address || '',
+    BUSINESS_HOURS: co.businessHours || '',
+    GOOGLE_MAPS_EMBED_URL: ct.mapsUrl || '',
+    SOCIAL: { linkedin: so.linkedin || '', facebook: so.facebook || '', instagram: so.instagram || '', youtube: so.youtube || '', x: so.x || '' },
+    GA4_MEASUREMENT_ID: an.ga4MeasurementId || '',
+    GTM_CONTAINER_ID: an.gtmContainerId || '',
+    CLARITY_PROJECT_ID: an.clarityProjectId || '',
+    META_PIXEL_ID: an.metaPixelId || '',
+    SEARCH_CONSOLE_VERIFICATION: an.searchConsoleVerification || '',
+    PRODUCTS: b.products || {}
+  };
+})();

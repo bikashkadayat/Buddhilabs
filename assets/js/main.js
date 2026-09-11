@@ -122,34 +122,88 @@
     if (name) window.buddhiTrack(name, { link_text: (el.textContent || '').trim().slice(0, 80), link_url: href });
   });
 
-  /* ---------- Contact details & social links from site-config.js ---------- */
-  var contactMap = {
-    'sales-email': [cfg.SALES_EMAIL, 'mailto:' + cfg.SALES_EMAIL],
-    'support-email': [cfg.SUPPORT_EMAIL, 'mailto:' + cfg.SUPPORT_EMAIL],
-    'phone': [cfg.PHONE_DISPLAY || cfg.PHONE, 'tel:' + (cfg.PHONE || '').replace(/[^+\d]/g, '')],
-    'address': [cfg.ADDRESS, null],
-    'hours': [cfg.BUSINESS_HOURS, null]
-  };
-  document.querySelectorAll('[data-contact]').forEach(function (el) {
-    var entry = contactMap[el.getAttribute('data-contact')];
-    if (!entry || !entry[0]) return;               // keep the [TO BE CONFIRMED] placeholder text
-    if (entry[1]) {
-      var a = document.createElement('a'); a.href = entry[1]; a.textContent = entry[0];
-      a.className = el.getAttribute('data-link-class') || 'hover:text-white transition-colors';
-      el.innerHTML = ''; el.appendChild(a);
-    } else { el.textContent = entry[0]; }
-  });
-  document.querySelectorAll('[data-social]').forEach(function (el) {
-    var url = (cfg.SOCIAL || {})[el.getAttribute('data-social')];
-    if (url) { el.href = url; el.hidden = false; el.setAttribute('rel', 'noopener'); el.setAttribute('target', '_blank'); }
-    else { el.hidden = true; }
-  });
-  var socialWrap = document.querySelector('[data-social-wrap]');
-  if (socialWrap && !socialWrap.querySelector('[data-social]:not([hidden])')) socialWrap.hidden = true;
-  var mapSlot = document.getElementById('map-embed');
-  if (mapSlot && cfg.GOOGLE_MAPS_EMBED_URL) {
-    mapSlot.innerHTML = '<iframe src="' + cfg.GOOGLE_MAPS_EMBED_URL + '" width="100%" height="320" style="border:0" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" title="Buddhi Labs office location"></iframe>';
+  /* ---------- Business configuration helpers (values come from assets/js/business-config.js) ----------
+     All DOM writes use textContent / setAttribute – never innerHTML – so config values are rendered as text. */
+  function getBusinessConfig() { return window.BUDDHI_LABS_CONFIG || {}; }
+  function isConfigured(value) { return typeof value === 'string' ? value.trim().length > 0 : !!value; }
+  window.getBusinessConfig = getBusinessConfig; window.isConfigured = isConfigured;
+
+  function setLink(el, href, text, opts) {
+    opts = opts || {};
+    var a = document.createElement('a');
+    a.href = href; a.textContent = text;
+    a.className = el.getAttribute('data-link-class') || 'hover:text-white transition-colors';
+    if (opts.external) { a.target = '_blank'; a.rel = 'noopener noreferrer'; }
+    if (opts.label) a.setAttribute('aria-label', opts.label);
+    while (el.firstChild) el.removeChild(el.firstChild);
+    el.appendChild(a);
   }
+  function hideBlock(el) { var block = el.closest('[data-optional]') || el; block.hidden = true; }
+
+  /* data-company="displayName|legalName|registrationNumber|address|businessHours|city|country" */
+  function populateCompanyDetails() {
+    var co = getBusinessConfig().company || {};
+    document.querySelectorAll('[data-company]').forEach(function (el) {
+      var v = co[el.getAttribute('data-company')];
+      if (isConfigured(v)) el.textContent = v;            // otherwise keep the visible [TO BE CONFIRMED] placeholder
+    });
+  }
+
+  /* data-contact="salesEmail|supportEmail|privacyEmail|phone|whatsapp|address|hours|mapsUrl" (legacy kebab-case accepted) */
+  function populateContactLinks() {
+    var alias = { 'sales-email': 'salesEmail', 'support-email': 'supportEmail', 'privacy-email': 'privacyEmail', 'phone': 'phone', 'whatsapp': 'whatsapp', 'address': 'address', 'hours': 'hours', 'maps': 'mapsUrl', 'mapsUrl': 'mapsUrl' };
+    var entries = {
+      salesEmail:   cfg.SALES_EMAIL   ? ['mailto:' + cfg.SALES_EMAIL, cfg.SALES_EMAIL, { label: 'Email Buddhi Labs sales at ' + cfg.SALES_EMAIL }] : null,
+      supportEmail: cfg.SUPPORT_EMAIL ? ['mailto:' + cfg.SUPPORT_EMAIL, cfg.SUPPORT_EMAIL, { label: 'Email Buddhi Labs support at ' + cfg.SUPPORT_EMAIL }] : null,
+      privacyEmail: (cfg.PRIVACY_EMAIL || cfg.SALES_EMAIL) ? ['mailto:' + (cfg.PRIVACY_EMAIL || cfg.SALES_EMAIL), (cfg.PRIVACY_EMAIL || cfg.SALES_EMAIL), {}] : null,
+      phone:        cfg.PHONE ? ['tel:' + cfg.PHONE.replace(/[^+\d]/g, ''), cfg.PHONE_DISPLAY, { label: 'Call Buddhi Labs at ' + cfg.PHONE_DISPLAY }] : null,
+      whatsapp:     cfg.WHATSAPP ? ['https://wa.me/' + cfg.WHATSAPP, 'Chat on WhatsApp', { external: true, label: 'Chat with Buddhi Labs on WhatsApp' }] : null,
+      mapsUrl:      cfg.GOOGLE_MAPS_EMBED_URL ? [cfg.GOOGLE_MAPS_EMBED_URL, 'View on Google Maps', { external: true, label: 'Open the Buddhi Labs office location on Google Maps' }] : null,
+      address:      cfg.ADDRESS ? [null, cfg.ADDRESS] : null,
+      hours:        cfg.BUSINESS_HOURS ? [null, cfg.BUSINESS_HOURS] : null
+    };
+    document.querySelectorAll('[data-contact]').forEach(function (el) {
+      var key = alias[el.getAttribute('data-contact')] || el.getAttribute('data-contact');
+      var e = entries[key];
+      if (!e) { if (el.hasAttribute('data-optional') || el.closest('[data-optional]')) hideBlock(el); return; }   // keep placeholder text for required items
+      if (e[0]) setLink(el, e[0], e[1], e[2]); else el.textContent = e[1];
+      var block = el.closest('[data-optional]'); if (block) block.hidden = false;
+    });
+  }
+
+  /* data-social="linkedin|facebook|instagram|youtube|x" – icons stay hidden unless a URL exists; wrapper hidden if none */
+  function populateSocialLinks() {
+    var any = false;
+    document.querySelectorAll('[data-social]').forEach(function (el) {
+      var url = (cfg.SOCIAL || {})[el.getAttribute('data-social')];
+      if (isConfigured(url) && /^https:\/\//.test(url)) { el.href = url; el.hidden = false; el.setAttribute('rel', 'noopener noreferrer'); el.setAttribute('target', '_blank'); any = true; }
+      else { el.hidden = true; }
+    });
+    document.querySelectorAll('[data-social-wrap]').forEach(function (w) { w.hidden = !any; });
+  }
+
+  /* Map: only rendered when a real embed URL exists; the container stays hidden otherwise (no empty iframe). */
+  function populateMapLink() {
+    var slot = document.getElementById('map-embed'); if (!slot) return;
+    var url = cfg.GOOGLE_MAPS_EMBED_URL;
+    if (!isConfigured(url) || !/^https:\/\/(www\.)?google\.[a-z.]+\/maps/.test(url)) { slot.hidden = true; return; }
+    var f = document.createElement('iframe');
+    f.src = url; f.width = '100%'; f.height = '320'; f.loading = 'lazy'; f.title = 'Buddhi Labs office location';
+    f.setAttribute('style', 'border:0'); f.setAttribute('allowfullscreen', ''); f.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+    while (slot.firstChild) slot.removeChild(slot.firstChild);
+    slot.appendChild(f); slot.hidden = false;
+  }
+
+  /* Search Console verification: runtime insertion is a convenience only – paste the tag into the HTML head for
+     reliable verification (docs/analytics-setup.md). */
+  function populateAnalyticsMeta() {
+    if (!isConfigured(cfg.SEARCH_CONSOLE_VERIFICATION)) return;
+    if (document.querySelector('meta[name="google-site-verification"]')) return;
+    var m = document.createElement('meta'); m.name = 'google-site-verification'; m.content = cfg.SEARCH_CONSOLE_VERIFICATION;
+    document.head.appendChild(m);
+  }
+
+  populateCompanyDetails(); populateContactLinks(); populateSocialLinks(); populateMapLink(); populateAnalyticsMeta();
 
   /* ---------- Mobile menu ---------- */
   var toggle = document.getElementById('menu-toggle');

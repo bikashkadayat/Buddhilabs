@@ -1,5 +1,7 @@
 # Content to confirm before launch
 
+> **Phase 4A status (2026-09-11):** confirmed and applied via `assets/js/business-config.js` – display name, domain `https://buddhilabs.bikashkadayat.com.np`, office address (New Baneshwar, Kathmandu, Nepal), business hours (10:00 AM – 5:00 PM), sales email, support email, phone/WhatsApp (+977 9705811712), team names and roles. **Still required:** Formspree endpoint, LinkedIn URL, Facebook URL, Instagram URL, YouTube URL, X/Twitter URL, Google Maps URL/embed, legal company name and registration number, dedicated privacy email (sales email is used as the fallback on legal pages), product capability/availability/deployment/pricing confirmation, product screenshots, team photos, demo videos, testimonials/logos with permission, legal approval details, analytics and Search Console IDs.
+
 > Phase 3 note: the consolidated, status-tracked version of this list is **docs/phase-3-inputs-required.md**. Product screenshots now use a "Product preview coming soon" visual (see docs/product-image-guide.md) and the team section is company-focused until individual details are approved.
 
 Every item below is either shown on the website as a `[TO BE CONFIRMED: …]` placeholder, hidden until configured, or
@@ -7,14 +9,14 @@ needed to replace placeholder graphics. Provide the values to the developer, or 
 
 | # | Item | Where it is used | How to update |
 |---|------|------------------|---------------|
-| 1 | **Official phone number** | Footer (every page), contact page | `assets/js/site-config.js` → `PHONE` and `PHONE_DISPLAY` |
-| 2 | **Official sales email** | Footer, contact page, demonstration-mode notice, "Prefer email?" line | `site-config.js` → `SALES_EMAIL` |
-| 3 | **Support email** | Contact page | `site-config.js` → `SUPPORT_EMAIL` |
-| 4 | **Office address** | Footer, contact page, privacy/terms | `site-config.js` → `ADDRESS`; privacy.html / terms.html placeholders |
-| 5 | **Business hours** | Footer, contact page | `site-config.js` → `BUSINESS_HOURS` |
-| 6 | **Google Maps location** | Contact page map | `site-config.js` → `GOOGLE_MAPS_EMBED_URL` (Google Maps → Share → Embed a map → copy the `src`) |
-| 7 | **WhatsApp number** (optional) | Not shown until set | `site-config.js` → `WHATSAPP`; add a link if desired |
-| 8 | **Social media URLs** (LinkedIn, Facebook, X, YouTube) | Footer icons are hidden until set | `site-config.js` → `SOCIAL` |
+| 1 | **Official phone number** | ✅ +977 9705811712 | `business-config.js` → `contact.phone` / `phoneDisplay` |
+| 2 | **Official sales email** | ✅ salesbuddhilabs@gmail.com | `business-config.js` → `contact.salesEmail` |
+| 3 | **Support email** | ✅ supportbuddhilabs@gmail.com | `business-config.js` → `contact.supportEmail` |
+| 4 | **Office address** | ✅ New Baneshwar, Kathmandu, Nepal | `business-config.js` → `company.address` |
+| 5 | **Business hours** | ✅ 10:00 AM – 5:00 PM (days not specified) | `business-config.js` → `company.businessHours` |
+| 6 | **Google Maps URL/embed** | ⬜ still required (map stays hidden) | `business-config.js` → `contact.mapsUrl` |
+| 7 | **WhatsApp number** | ✅ wa.me/9779705811712 | `business-config.js` → `contact.whatsapp` |
+| 8 | **Social media URLs** | ⬜ still required: LinkedIn, Facebook, Instagram, YouTube, X/Twitter (icons hidden) | `business-config.js` → `social` |
 | 9 | **Real team member names, roles** | ✅ Confirmed: Bikash Kadayat (Founder & CEO), Karan Rai (Chief Marketing Officer), Nabraj Kadayat (Chief Operations Manager) – shown on team.html, about.html, index.html | Photos and LinkedIn URLs still pending: replace the `.avatar-initials` element in team.html with an `<img>` (square, 400×400+, `assets/images/team/`) |
 | 10 | **Company history / founding year** | about.html "Who we are" (HTML comment placeholder) | Edit about.html |
 | 11 | **Client logos** | Not shown (no section until logos are approved) | Add a "Trusted by" strip on index.html once logos and permission are available |
@@ -30,9 +32,9 @@ needed to replace placeholder graphics. Provide the values to the developer, or 
 | 21 | **Google Analytics 4 Measurement ID** | Loaded by main.js when set | `site-config.js` → `GA4_MEASUREMENT_ID` |
 | 22 | **Google Tag Manager container ID** (if used instead of GA4 direct) | `site-config.js` → `GTM_CONTAINER_ID` | |
 | 23 | **Google Search Console verification value** | `<head>` of every page (commented meta tag) | Uncomment and paste in the build partial / all HTML files; see docs/analytics-setup.md |
-| 24 | **Domain name** | Canonical, Open Graph, sitemap.xml, robots.txt, site-config.js | Search-and-replace `https://www.buddhilabs.com` |
+| 24 | **Domain name** | ✅ https://buddhilabs.bikashkadayat.com.np | `npm run set-domain -- <url>` |
 | 25 | **Hosting / VPS details** | Deployment | See docs/deployment-checklist.md |
-| 26 | **Form provider decision** | Contact form is in demonstration mode | `site-config.js` → `FORM_PROVIDER`, `CONTACT_FORM_ENDPOINT`; see docs/contact-form-integration.md |
+| 26 | **Form provider** | ✅ Formspree selected; ⬜ endpoint still required (form in demo mode) | `business-config.js` → `form.endpoint`; docs/formspree-setup.md |
 | 27 | **reCAPTCHA v3 keys** (optional) | Contact form | `site-config.js` → `RECAPTCHA_SITE_KEY`; secret key in backend `.env` |
 | 28 | **Support response expectations** | Contact FAQ says "within a few business days"; products FAQ says confirmed in writing | Adjust once a support policy exists |
 | 29 | **Open Graph image** (optional improvement) | `assets/brand/og-image.png` is composed from the logo; a designed 1200×630 image can replace it | Replace the file, keep the name |

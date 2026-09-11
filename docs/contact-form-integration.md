@@ -1,7 +1,8 @@
 # Contact form integration
 
 The contact form (`contact.html`) is driven by `assets/js/contact-form.js` and configured entirely in
-`assets/js/site-config.js`. **Until a provider is configured the form is in demonstration mode**: validation runs,
+`assets/js/business-config.js` (`form` block; `site-config.js` adapts it). **Selected provider: Formspree** – see
+docs/formspree-setup.md. Endpoint not yet supplied → demonstration mode. **Until a provider is configured the form is in demonstration mode**: validation runs,
 but nothing is submitted and a clearly styled notice tells visitors to contact Buddhi Labs directly. The form never
 shows a success message unless the provider responds with HTTP 2xx.
 
@@ -9,11 +10,10 @@ shows a success message unless the provider responds with HTTP 2xx.
 
 | Key (site-config.js) | Values | Notes |
 |---|---|---|
-| `FORM_PROVIDER` | `none` · `custom` · `formspree` · `netlify` | `none` = demonstration mode |
-| `CONTACT_FORM_ENDPOINT` | URL | Required for `custom` and `formspree` |
-| `RECAPTCHA_SITE_KEY` | string | Optional. Loads reCAPTCHA v3 and adds `g-recaptcha-response` to the payload |
-| `SALES_EMAIL` | email | Shown in the demonstration-mode notice and contact details |
-| `SUPPORT_EMAIL` | email | Shown on the contact page |
+| `form.provider` | `demo` · `formspree` · `netlify` · `custom-api` | `demo`, or any provider without a valid endpoint, = demonstration mode |
+| `form.endpoint` | URL | Formspree: must match `https://formspree.io/f/<id>`; custom-api: https URL or `/api/...` |
+| `form.recaptchaSiteKey` | public site key | Optional. Loads reCAPTCHA v3 and adds `g-recaptcha-response` (secret key stays server-side) |
+| `contact.salesEmail` / `contact.phone` | | Shown in the demonstration-mode notice ("Online form submission is being configured…") |
 
 The same keys are listed in `.env.example` for server-side or CI use.
 
@@ -23,13 +23,14 @@ JSON (custom / Formspree) or form-encoded (Netlify):
 
 ```json
 {
-  "name": "…", "company": "…", "email": "…", "phone": "…",
-  "subject": "HRMS Demo",            // human-readable label
+  "full_name": "…", "organization": "…", "email": "…", "phone": "…",
   "interest": "hrms-demo",           // machine value, see below
-  "budget_range": "1l-5l",           // optional: not-sure | under-1l | 1l-5l | 5l-20l | over-20l | ""
+  "interest_label": "HRMS Demo",     // human-readable label
+  "budget_range": "1l-5l",           // optional
   "message": "…", "consent": "yes",
-  "source": "https://www.buddhilabs.com/contact.html?interest=hrms-demo",
+  "source_page": "https://buddhilabs.bikashkadayat.com.np/contact.html?interest=hrms-demo",
   "submitted_at": "2026-09-11T10:15:00.000Z",
+  "_subject": "Buddhi Labs website enquiry: HRMS Demo",   // Formspree email subject
   "g-recaptcha-response": "…"        // only when reCAPTCHA is enabled
 }
 ```
@@ -48,7 +49,7 @@ CTA buttons across the site pass `?interest=<slug>`; the form pre-selects the ma
 | `contact.html?interest=it-support` | IT Support |
 | `contact.html?interest=seo-services` | SEO Services |
 | `contact.html?interest=it-training` | IT Training |
-| `contact.html?interest=general` | General Business Inquiry |
+| `contact.html?interest=general` or `general-inquiry` | General Business Inquiry |
 | `contact.html?interest=partnership` / `careers` | Partnership / Careers |
 
 ## Option 1 – Formspree

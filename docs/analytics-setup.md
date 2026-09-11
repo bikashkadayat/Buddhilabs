@@ -1,6 +1,6 @@
 # Analytics and Search Console setup
 
-No tracking script is loaded until (1) an ID is entered in `assets/js/site-config.js` **and** (2) the visitor accepts
+No tracking script is loaded until (1) an ID is entered in `assets/js/business-config.js` (`analytics` block) **and** (2) the visitor accepts
 analytics cookies in the consent banner. `assets/js/main.js` injects the snippets at runtime. Commented reference
 snippets remain in the `<head>` of every page for teams that prefer inline tags – if you use them, wrap them in the
 same consent check or remove the banner requirement after legal review.
@@ -22,27 +22,29 @@ same consent check or remove the banner requirement after legal review.
 ## Google Analytics 4
 
 1. Create a GA4 property and web data stream; copy the Measurement ID (`G-XXXXXXXXXX`).
-2. `site-config.js` → `GA4_MEASUREMENT_ID: 'G-XXXXXXXXXX'`.
+2. `business-config.js` → `analytics.ga4MeasurementId: "G-XXXXXXXXXX"`.
 3. Reload the site and confirm hits in GA4 → Realtime.
 
 ## Google Tag Manager (alternative or in addition)
 
 1. Create a container; copy the ID (`GTM-XXXXXXX`).
-2. `site-config.js` → `GTM_CONTAINER_ID: 'GTM-XXXXXXX'`.
+2. `business-config.js` → `analytics.gtmContainerId: "GTM-XXXXXXX"`.
 3. Optionally uncomment the `<noscript>` GTM iframe in the `<body>` of each page (search for `googletagmanager.com/ns.html`).
 4. If you use GTM, configure GA4 inside GTM and leave `GA4_MEASUREMENT_ID` empty to avoid double tagging.
 
 ## Google Search Console
 
-1. Add the property (URL-prefix: `https://www.buddhilabs.com/`, or the Domain property via DNS).
-2. HTML-tag method: copy the `content` value and uncomment/paste it into the
-   `<meta name="google-site-verification">` tag in the `<head>` of every page (it is present, commented, on all pages).
-3. Verify, then submit `https://www.buddhilabs.com/sitemap.xml` under Sitemaps.
+1. Add the property (URL-prefix: `https://buddhilabs.bikashkadayat.com.np/`, or the Domain property via DNS).
+2. HTML-tag method: copy the `content` value. Paste it into `business-config.js` → `analytics.searchConsoleVerification`
+   (inserted at runtime as a convenience) **and** uncomment/paste it into the `<meta name="google-site-verification">` tag
+   in the `<head>` of every page – Google may not execute JavaScript during verification, so the static tag is the
+   reliable method. No token has been supplied yet.
+3. Verify, then submit `https://buddhilabs.bikashkadayat.com.np/sitemap.xml` under Sitemaps.
 
 ## Optional: Microsoft Clarity and Meta Pixel
 
-- `site-config.js` → `CLARITY_PROJECT_ID` (Clarity → Settings → Setup → project ID).
-- `site-config.js` → `META_PIXEL_ID`. Review the Privacy Policy and cookie wording before enabling either.
+- `business-config.js` → `analytics.clarityProjectId` (Clarity → Settings → Setup → project ID).
+- `business-config.js` → `analytics.metaPixelId`. Review the Privacy Policy and cookie wording before enabling either.
 
 ## Recommended events (already emitted)
 
@@ -75,4 +77,4 @@ email addresses, phone numbers, organization names or message content. GA4 is co
 
 Open the browser console and run `dataLayer` after clicking a CTA; entries appear even before GA4 is configured or
 consent is given, which makes the setup testable without an account. To test the banner locally, temporarily set
-`GA4_MEASUREMENT_ID: 'G-TEST'` in site-config.js, clear `localStorage`, reload, then revert.
+`analytics.ga4MeasurementId: "G-TEST"` in business-config.js, clear `localStorage`, reload, then revert.

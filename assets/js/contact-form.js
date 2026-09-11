@@ -34,17 +34,25 @@
   var submitBtn = form.querySelector('[type="submit"]');
   var submitLabel = submitBtn ? submitBtn.innerHTML : '';
 
-  var configured = (provider === 'custom' || provider === 'formspree') ? !!endpoint : provider === 'netlify';
+  // Provider is active only with a valid endpoint (Formspree endpoints must look like https://formspree.io/f/<id>)
+  var validEndpoint = provider === 'formspree' ? /^https:\/\/formspree\.io\/f\/[A-Za-z0-9]+$/.test(endpoint)
+                    : provider === 'custom' ? /^(https:\/\/|\/)/.test(endpoint) : false;
+  var configured = provider === 'netlify' ? true : validEndpoint;
 
   /* ---------- Demonstration mode notice ---------- */
   if (!configured && demoBox) {
-    var emailText = cfg.SALES_EMAIL || '[TO BE CONFIRMED: Official Email]';
-    var slot = demoBox.querySelector('[data-demo-email]');
-    if (slot) {
-      if (cfg.SALES_EMAIL) {
-        slot.innerHTML = '<a class="font-semibold underline underline-offset-2" href="mailto:' + cfg.SALES_EMAIL + '">' + cfg.SALES_EMAIL + '</a>';
+    // Build the notice with DOM APIs only (no innerHTML with config values)
+    var text = demoBox.querySelector('[data-demo-text]');
+    if (text) {
+      while (text.firstChild) text.removeChild(text.firstChild);
+      function link(href, label) { var a = document.createElement('a'); a.href = href; a.textContent = label; a.className = 'font-semibold underline underline-offset-2'; return a; }
+      if (cfg.SALES_EMAIL || cfg.PHONE) {
+        text.appendChild(document.createTextNode('Online form submission is being configured. You can contact Buddhi Labs directly'));
+        if (cfg.SALES_EMAIL) { text.appendChild(document.createTextNode(' at ')); text.appendChild(link('mailto:' + cfg.SALES_EMAIL, cfg.SALES_EMAIL)); }
+        if (cfg.PHONE) { text.appendChild(document.createTextNode(cfg.SALES_EMAIL ? ' or call ' : ' by calling ')); text.appendChild(link('tel:' + cfg.PHONE.replace(/[^+\d]/g, ''), cfg.PHONE_DISPLAY)); }
+        text.appendChild(document.createTextNode('.'));
       } else {
-        slot.textContent = emailText;
+        text.appendChild(document.createTextNode('The form is currently in demonstration mode. Please contact us directly at [TO BE CONFIRMED: Official Email].'));
       }
     }
     demoBox.classList.add('is-visible');
@@ -187,8 +195,10 @@
     });
   }
 
+  var inFlight = false;
   form.addEventListener('submit', function (e) {
     e.preventDefault();
+    if (inFlight) return;                       // never send duplicate requests
     setAlert(successBox, false);
     setAlert(errorBox, false);
 
@@ -211,19 +221,21 @@
     }
 
     var payload = {
-      name: form.name.value.trim(),
-      company: form.company.value.trim(),
+      full_name: form.name.value.trim(),
+      organization: form.company.value.trim(),
       email: form.email.value.trim(),
       phone: form.phone.value.trim(),
-      subject: form.subject.options[form.subject.selectedIndex].text,
       interest: form.subject.value,
+      interest_label: form.subject.options[form.subject.selectedIndex].text,
       budget_range: form.budget ? form.budget.value : '',
       message: form.message.value.trim(),
       consent: 'yes',
-      source: window.location.href,
-      submitted_at: new Date().toISOString()
+      source_page: window.location.href,
+      submitted_at: new Date().toISOString(),
+      _subject: 'Buddhi Labs website enquiry: ' + form.subject.options[form.subject.selectedIndex].text   // used by Formspree as the email subject
     };
     track('contact_form_submit', { interest: payload.interest, form_mode: provider });
+    inFlight = true;
     setLoading(true);
 
     getRecaptchaToken().then(function (token) {
@@ -239,6 +251,6 @@
       if (window.console) console.error('[Buddhi Labs] Contact form submission failed:', err);
       setAlert(errorBox, true);
       track('contact_form_error');
-    }).finally(function () { setLoading(false); });
+    }).finally(function () { inFlight = false; setLoading(false); });
   });
 })();

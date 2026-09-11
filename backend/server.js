@@ -17,6 +17,8 @@ import crypto from 'node:crypto';
 
 /* ---------- Environment validation ---------- */
 const env = process.env;
+if (!env.SMTP_PASS && env.SMTP_PASSWORD) env.SMTP_PASS = env.SMTP_PASSWORD;
+if (!env.RECAPTCHA_SECRET_KEY && env.RECAPTCHA_SECRET) env.RECAPTCHA_SECRET_KEY = env.RECAPTCHA_SECRET;
 const NODE_ENV = env.NODE_ENV || 'development';
 const PORT = Number(env.PORT || 3000);
 const REQUIRED = NODE_ENV === 'production' ? ['ALLOWED_ORIGINS', 'NOTIFY_EMAIL_TO'] : [];
@@ -154,15 +156,15 @@ const BUDGETS = new Set(['', 'not-sure', 'under-1l', '1l-5l', '5l-20l', 'over-20
 function validate(body) {
   const errors = {};
   const lead = {
-    full_name: clean(body.name, 150),
-    organization: clean(body.company, 150),
+    full_name: clean(body.full_name || body.name, 150),
+    organization: clean(body.organization || body.company, 150),
     email: clean(body.email, 255).toLowerCase(),
     phone: clean(body.phone, 50),
     interest: clean(body.interest, 100),
     budget_range: clean(body.budget_range, 100),
     message: clean(body.message, 5000),
     consent_given: body.consent === 'yes' || body.consent === true,
-    source_page: clean(body.source, 255)
+    source_page: clean(body.source_page || body.source, 255)
   };
   if (lead.full_name.length < 2) errors.name = 'Name is required.';
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(lead.email)) errors.email = 'Valid email is required.';

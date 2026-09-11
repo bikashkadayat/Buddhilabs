@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Buddhi Labs sitemap. DOMAIN: replace https://www.buddhilabs.com with the live domain before launch
+  Buddhi Labs sitemap. DOMAIN: replace https://buddhilabs.bikashkadayat.com.np with the live domain before launch
   (see docs/deployment-checklist.md). Add a <url> for every published Insights article.
   Excluded on purpose: blog-post-template.html (draft, noindex) and 404.html.
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://www.buddhilabs.com/</loc><lastmod>2026-09-11</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://www.buddhilabs.com/products.html</loc><lastmod>2026-09-11</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.buddhilabs.com/hrms.html</loc><lastmod>2026-09-11</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.buddhilabs.com/ev-risk-intelligence.html</loc><lastmod>2026-09-11</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.buddhilabs.com/services.html</loc><lastmod>2026-09-11</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://www.buddhilabs.com/team.html</loc><lastmod>2026-09-11</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.buddhilabs.com/about.html</loc><lastmod>2026-09-11</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://www.buddhilabs.com/contact.html</loc><lastmod>2026-09-11</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://www.buddhilabs.com/blog.html</loc><lastmod>2026-09-11</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://www.buddhilabs.com/privacy.html</loc><lastmod>2026-09-11</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://www.buddhilabs.com/terms.html</loc><lastmod>2026-09-11</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://buddhilabs.bikashkadayat.com.np/</loc><lastmod>2026-09-11</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://buddhilabs.bikashkadayat.com.np/products.html</loc><lastmod>2026-09-11</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://buddhilabs.bikashkadayat.com.np/hrms.html</loc><lastmod>2026-09-11</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://buddhilabs.bikashkadayat.com.np/ev-risk-intelligence.html</loc><lastmod>2026-09-11</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://buddhilabs.bikashkadayat.com.np/services.html</loc><lastmod>2026-09-11</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://buddhilabs.bikashkadayat.com.np/team.html</loc><lastmod>2026-09-11</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://buddhilabs.bikashkadayat.com.np/about.html</loc><lastmod>2026-09-11</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://buddhilabs.bikashkadayat.com.np/contact.html</loc><lastmod>2026-09-11</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://buddhilabs.bikashkadayat.com.np/blog.html</loc><lastmod>2026-09-11</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://buddhilabs.bikashkadayat.com.np/privacy.html</loc><lastmod>2026-09-11</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://buddhilabs.bikashkadayat.com.np/terms.html</loc><lastmod>2026-09-11</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>

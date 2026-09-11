@@ -11,3 +11,5 @@ scripts
 .env.*
 docker-compose*.yml
 .dockerignore
+_site
+.github

@@ -38,7 +38,7 @@ Horizontal overflow measured (`scrollWidth > innerWidth`) on all 12 pages at **3
 
 ## SEO checks
 - 12 unique titles, 12 unique meta descriptions (all ≤ 160 chars); canonical, OG (1200×630 image), Twitter tags on every page.
-- All canonicals use the configured domain `https://www.buddhilabs.com` (placeholder until the real domain is confirmed).
+- All canonicals use the configured domain `https://buddhilabs.bikashkadayat.com.np` (placeholder until the real domain is confirmed).
 - Sitemap lists exactly the 10 indexable pages; robots.txt references the sitemap and disallows `/api/`, `/404.html`, `/blog-post-template.html`.
 - JSON-LD: Organization + WebSite (home), ItemList + FAQPage (products), SoftwareApplication + FAQPage (both products),
   4 × Service (services), ContactPage + FAQPage (contact). FAQ text equals FAQPage schema on all four pages (verified programmatically).
@@ -124,3 +124,65 @@ brand dark #023530 with white initials, `role="img"` + descriptive `aria-label`)
 | Sitemap includes team.html; robots.txt unchanged and valid | PASS |
 
 Remaining for this section: approved profile photographs and optional LinkedIn URLs (docs/phase-3-inputs-required.md).
+
+---
+
+## Addendum – Central business configuration + GitHub Pages (Phase 4A, 2026-09-11)
+
+**Changes:** `assets/js/business-config.js` (single public configuration; `site-config.js` is now an adapter), config-driven
+population of company/contact/social/map/analytics values in `main.js`, Formspree selected (endpoint blank → safe demo mode),
+`scripts/set-domain.js` applied with `https://buddhilabs.bikashkadayat.com.np`, `CNAME`, `.nojekyll`,
+`.github/workflows/deploy-pages.yml`, `scripts/build-site.mjs` (public artifact), confirmed contact details baked into the
+HTML and rendered as links, JSON-LD Organization contact points, WhatsApp link, map/social blocks hidden, new docs.
+
+### Static checks
+| Check | Result |
+|---|---|
+| Internal links | 862 checked, 0 broken, 0 missing anchors |
+| Images | 44, all with alt; no stock photos, no map placeholder image |
+| Canonical / og:url on all 13 pages | all `https://buddhilabs.bikashkadayat.com.np/…` |
+| Sitemap | 11 public pages incl. team.html, correct domain; 404 and article template are noindex and excluded |
+| robots.txt | `Sitemap: https://buddhilabs.bikashkadayat.com.np/sitemap.xml` |
+| JSON-LD | 11 blocks parse; all 28 URLs on the new domain; Organization has address, sales/support contact points |
+| Old domain leftovers | none in HTML/XML/TXT/JS/MD/env examples |
+| Tailwind CDN / off-brand classes / `href="#"` social or map links | 0 / none / 0 |
+| Secrets in public JS | none; `.env` files absent; `.gitignore` covers `.env`, `backend/.env`, `_site/` |
+| Remaining placeholders | 23 occurrences, all legal-entity/legal-review items (legal name, registration, dates, jurisdiction, retention, third-party list) + company history note |
+
+### Runtime – Scenario B (real configuration)
+| Check | Result |
+|---|---|
+| 12 pages × 320/375/768/1024/1440 px: no horizontal overflow | PASS (60/60) |
+| Console errors on all pages | 0 |
+| `mailto:salesbuddhilabs@gmail.com`, `mailto:supportbuddhilabs@gmail.com` | PASS |
+| `tel:+9779705811712` shown as "+977 9705811712" | PASS |
+| WhatsApp `https://wa.me/9779705811712`, new tab, `noopener noreferrer`, label "Chat with Buddhi Labs on WhatsApp" | PASS |
+| Address "New Baneshwar, Kathmandu, Nepal", hours "10:00 AM – 5:00 PM" | PASS |
+| No map, no social icons, no cookie banner, footer cookie link hidden, no tracker scripts requested | PASS |
+| Form: Formspree selected, endpoint blank → notice "Online form submission is being configured… salesbuddhilabs@gmail.com … +977 9705811712", valid submit sends **no** request and shows **no** success | PASS |
+| Interest preselection: hrms-demo, ev-risk-demo, software-development, it-support, seo-services, it-training, general-inquiry | PASS (7/7) |
+| Formspree with valid endpoint (stubbed): POST to endpoint with full_name, organization, email, phone, interest, budget_range, message, consent, source_page, submitted_at; success only after 200; duplicate submit blocked | PASS |
+| Formspree with non-Formspree endpoint | stays in demo mode (PASS) |
+| Consent banner with a test GA4 id: appears, GA not loaded before consent or after reject | PASS |
+| Privacy page: sales email used as privacy fallback; legal name placeholder and draft banner retained | PASS |
+
+### Runtime – Scenario A (empty configuration, served via request interception)
+index, contact, privacy, team, about: page loads, 0 console errors, no empty `mailto:`/`tel:`/`wa.me` links, WhatsApp and
+support blocks hidden, social icons hidden, map hidden, no cookie banner, form in demonstration mode with the generic
+placeholder message – PASS (5/5). Baked-in address text remains visible (progressive enhancement).
+
+### Domain script
+Rejects `http://`, URLs with a path, non-URLs, URLs with credentials and missing argument; updated 25 files / 132
+replacements; no old-host leftovers; `.env` files untouched.
+
+### GitHub Pages artifact
+`npm run build` + `npm run build:site` succeed; `_site` = 38 files (947 KB): 13 HTML pages, assets, CNAME
+(`buddhilabs.bikashkadayat.com.np`), robots.txt, sitemap.xml, `.nojekyll`. No `.env`, backend, reference, docs, Docker or
+source files included; no localhost/absolute paths. Workflow YAML parses.
+
+### Not verifiable here
+Actual GitHub Pages deployment, DNS CNAME, HTTPS enforcement and Formspree delivery require the repository owner's GitHub
+account, DNS provider and a Formspree endpoint.
+
+**Go-live recommendation:** ready to publish on GitHub Pages once the owner enables Pages, creates the DNS CNAME and
+enforces HTTPS; the contact form stays in safe demo mode until the Formspree endpoint is added.

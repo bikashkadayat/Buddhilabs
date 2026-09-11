@@ -1,5 +1,8 @@
 # Deployment checklist
 
+> **Current deployment target: GitHub Pages** – follow **docs/github-pages-deployment.md**. The Docker / VPS / backend
+> options below remain available for the future and are not required. Domain changes: `npm run set-domain -- <https url>`.
+
 ## Run locally
 
 ```bash
@@ -29,8 +32,8 @@ rules, clean URLs, custom 404) – see `docker/nginx.conf`.
 ## Domain decisions
 | Decision | Value | Where to change |
 |---|---|---|
-| Primary (canonical) host | `https://www.buddhilabs.com` (www) | `<link rel="canonical">`, OG/JSON-LD URLs in every HTML file, `sitemap.xml`, `robots.txt`, `assets/js/site-config.js` `SITE_URL`, `docker/Caddyfile` / `.env` `DOMAIN`, `backend/.env` `ALLOWED_ORIGINS`, CSP in `docker/nginx.conf` if the API is on another host |
-| Redirects | `http://*` → `https://`, `buddhilabs.com` → `https://www.buddhilabs.com` (301) | Caddy (VPS) or platform settings |
+| Primary (canonical) host | `https://buddhilabs.bikashkadayat.com.np` (subdomain; no apex redirect needed) | `<link rel="canonical">`, OG/JSON-LD URLs in every HTML file, `sitemap.xml`, `robots.txt`, `assets/js/site-config.js` `SITE_URL`, `docker/Caddyfile` / `.env` `DOMAIN`, `backend/.env` `ALLOWED_ORIGINS`, CSP in `docker/nginx.conf` if the API is on another host |
+| Redirects | `http://*` → `https://`, `buddhilabs.com` → `https://buddhilabs.bikashkadayat.com.np` (301) | Caddy (VPS) or platform settings |
 | DNS records | `A`/`AAAA` for `www` and apex → server IP (VPS) or `CNAME www` → platform host + apex ALIAS/ANAME; keep TTL low during cutover | DNS provider |
 | SSL | Let's Encrypt via Caddy (automatic) or platform-managed | Caddyfile / platform |
 | Email DNS (if domain email) | MX for the mail provider, `SPF` TXT, `DKIM` TXT, `DMARC` TXT (`_dmarc`) | DNS provider |
@@ -38,7 +41,7 @@ rules, clean URLs, custom 404) – see `docker/nginx.conf`.
 
 If the real domain differs, run once from the project root and rebuild:
 ```bash
-NEW=https://www.your-domain.com; grep -rl "https://www.buddhilabs.com" --include=*.html --include=*.xml --include=*.txt --include=*.js --include=*.conf --include=Caddyfile --include=.env.example . | xargs sed -i "s#https://www.buddhilabs.com#$NEW#g"
+NEW=https://www.your-domain.com; grep -rl "https://buddhilabs.bikashkadayat.com.np" --include=*.html --include=*.xml --include=*.txt --include=*.js --include=*.conf --include=Caddyfile --include=.env.example . | xargs sed -i "s#https://buddhilabs.bikashkadayat.com.np#$NEW#g"
 ```
 
 ## Production options
@@ -51,18 +54,18 @@ NEW=https://www.your-domain.com; grep -rl "https://www.buddhilabs.com" --include
 4. Alternative without Caddy: run `docker compose up -d --build` (port 8080) and put host Nginx/Certbot in front:
    - **Caddy** (simplest, automatic HTTPS):
      ```
-     www.buddhilabs.com {
+     buddhilabs.bikashkadayat.com.np {
          reverse_proxy localhost:8080
      }
      buddhilabs.com {
-         redir https://www.buddhilabs.com{uri} permanent
+         redir https://buddhilabs.bikashkadayat.com.np{uri} permanent
      }
      ```
    - **Nginx + Certbot**: create a server block proxying to `127.0.0.1:8080`, then
-     `sudo certbot --nginx -d buddhilabs.com -d www.buddhilabs.com` and enable auto-renewal (`certbot renew --dry-run`).
+     `sudo certbot --nginx -d buddhilabs.com -d buddhilabs.bikashkadayat.com.np` and enable auto-renewal (`certbot renew --dry-run`).
 4. Enforce HTTPS: redirect all port-80 traffic to `https://`, add
    `Strict-Transport-Security "max-age=31536000; includeSubDomains"` once HTTPS is confirmed working.
-5. Choose the canonical host (www or non-www) and 301-redirect the other. The site uses `https://www.buddhilabs.com`
+5. Choose the canonical host (www or non-www) and 301-redirect the other. The site uses `https://buddhilabs.bikashkadayat.com.np`
    in canonical tags and sitemap; keep them consistent with the redirect.
 
 ### B. Netlify
@@ -85,28 +88,28 @@ NEW=https://www.your-domain.com; grep -rl "https://www.buddhilabs.com" --include
 ### E. Full website with backend and PostgreSQL on VPS (Docker Compose)
 1. Provision a VPS; install Docker; open 80/443 only (PostgreSQL stays internal).
 2. `cp .env.example .env` (set `DOMAIN`, `APEX_DOMAIN`, a strong `POSTGRES_PASSWORD`) and
-   `cp backend/.env.example backend/.env` (set `ALLOWED_ORIGINS=https://www.buddhilabs.com`, `NOTIFY_EMAIL_TO`, `SMTP_*`,
+   `cp backend/.env.example backend/.env` (set `ALLOWED_ORIGINS=https://buddhilabs.bikashkadayat.com.np`, `NOTIFY_EMAIL_TO`, `SMTP_*`,
    optional `RECAPTCHA_SECRET_KEY`).
 3. In `assets/js/site-config.js`: `FORM_PROVIDER: 'custom'`, `CONTACT_FORM_ENDPOINT: '/api/contact'`; rebuild.
 4. `docker compose -f docker-compose.prod.yml up -d --build` → services `reverse-proxy` (Caddy), `web`, `api`, `db`.
    Caddy routes `/api/*` to the API and everything else to nginx; PostgreSQL uses the named volume `pgdata`.
-5. Verify: `curl -s https://www.buddhilabs.com/api/health` → `{"ok":true,"storage":"postgresql",...}`; submit a test enquiry.
+5. Verify: `curl -s https://buddhilabs.bikashkadayat.com.np/api/health` → `{"ok":true,"storage":"postgresql",...}`; submit a test enquiry.
 6. Backups: `docker exec buddhilabs-db pg_dump -U buddhi buddhilabs > backup.sql` on a schedule.
 
 ### Legacy: host Nginx + Certbot in front of the web container
 ## Domain setup
 - `A`/`AAAA` records (VPS) or `CNAME` (platform) for `www`; apex record or ALIAS/ANAME for the root domain.
 - Lower TTL before switching, raise it after.
-- Update `https://www.buddhilabs.com` everywhere if the final domain differs:
+- Update `https://buddhilabs.bikashkadayat.com.np` everywhere if the final domain differs:
   ```bash
-  grep -rl "www.buddhilabs.com" --include=*.html --include=*.xml --include=*.txt --include=*.js . | xargs sed -i 's#https://www.buddhilabs.com#https://www.your-domain.com#g'
+  grep -rl "buddhilabs.bikashkadayat.com.np" --include=*.html --include=*.xml --include=*.txt --include=*.js . | xargs sed -i 's#https://buddhilabs.bikashkadayat.com.np#https://www.your-domain.com#g'
   ```
 
 ## After the domain is live
 - Update `lastmod` in `sitemap.xml`; confirm `robots.txt` points to the live sitemap URL.
 - Verify the property in Google Search Console and submit `sitemap.xml` (docs/analytics-setup.md).
 - Request indexing of the home page and product pages.
-- Check `https://www.buddhilabs.com/assets/brand/og-image.png` renders in a social-share debugger (Facebook Sharing Debugger, LinkedIn Post Inspector).
+- Check `https://buddhilabs.bikashkadayat.com.np/assets/brand/og-image.png` renders in a social-share debugger (Facebook Sharing Debugger, LinkedIn Post Inspector).
 
 ## Launch checklist
 - [ ] Logo assets confirmed (official logo already in `assets/brand/`; replace OG image with a designed one if desired)
