@@ -161,7 +161,7 @@ Docker, the backend and PostgreSQL remain optional (docs/deployment-checklist.md
 | **Map** | `contact.html`, replace the placeholder image with a Google Maps `<iframe>` (comment shows how). |
 
 ### Connecting the contact form
-Set `form.provider` and `form.endpoint` in `assets/js/business-config.js`. Supported: `formspree` (selected; see **docs/formspree-setup.md**), `netlify`, `custom-api` (included backend). Until a valid endpoint exists the form is in demonstration mode and never fakes a success. Full guide: **docs/contact-form-integration.md**.
+Set `form.provider` and `form.endpoint` in `assets/js/business-config.js`. Supported: `formspree` (selected; see **docs/formspree-setup.md** and **docs/formspree-live-test.md**), `netlify`, `custom-api` (included backend). The form leaves demonstration mode only when the provider is exactly `formspree` and the endpoint is exactly `https://formspree.io/f/<form-id>`; it never fakes a success. Full guide: **docs/contact-form-integration.md**.
 
 ### Analytics & Search Console
 Enter `analytics.ga4MeasurementId` / `gtmContainerId` (optionally Clarity, Meta Pixel, Search Console token) in `business-config.js`; scripts load only when set **and** the visitor accepts analytics cookies. Search Console verification tag is commented in every `<head>`. Events emitted: `request_demo_click`, `hrms_demo_click`, `ev_risk_demo_click`, `service_inquiry_click`, `contact_form_*`, `phone_click`, `email_click`. Guide: **docs/analytics-setup.md**.

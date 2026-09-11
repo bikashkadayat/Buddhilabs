@@ -16,12 +16,12 @@ business must provide (see docs/phase-3-inputs-required.md).
 - [ ] Client testimonials approved, if used (docs/testimonial-and-client-logo-policy.md)
 
 ## Lead generation
-- [ ] ⚠ Formspree endpoint entered in business-config.js (provider selected; endpoint missing → demo mode)
+- [ ] ⚠ Formspree endpoint entered in business-config.js (Phase 4B: still a placeholder → demo mode; activation logic verified with a mocked endpoint)
 - [ ] ⚠ Recipient email tested (real submission received in the sales inbox)
 - [ ] Demo inquiry type tested (?interest=hrms-demo and ?interest=ev-risk-demo preselect correctly – verified in QA)
 - [ ] Spam protection enabled (honeypot active; reCAPTCHA or provider filtering configured)
-- [x] Form error message tested (QA: failed endpoint shows error, no success)
-- [ ] Form success message tested against the live provider
+- [x] Form error message tested (mocked 500 → "We could not submit your inquiry…", no success)
+- [ ] Form success message tested against the live provider (docs/formspree-live-test.md)
 
 ## SEO
 - [x] Unique titles verified (12/12)
@@ -43,7 +43,7 @@ business must provide (see docs/phase-3-inputs-required.md).
 
 ## Deployment
 - [ ] GitHub Pages enabled (Settings → Pages → Source: GitHub Actions) and workflow run green
-- [ ] DNS CNAME `buddhilabs` → `[YOUR_GITHUB_USERNAME].github.io` created
+- [ ] DNS CNAME `buddhilabs` → `[PASTE_GITHUB_USERNAME].github.io` created (username not yet supplied)
 - [ ] Custom domain validated in GitHub and "Enforce HTTPS" ticked
 - [x] Static artifact build tested locally (`npm ci && npm run build && npm run build:site`)
 - [ ] Backup created (git tag + `pgdata` volume snapshot if the API is used)

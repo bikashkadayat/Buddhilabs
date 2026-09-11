@@ -35,8 +35,10 @@
   var submitLabel = submitBtn ? submitBtn.innerHTML : '';
 
   // Provider is active only with a valid endpoint (Formspree endpoints must look like https://formspree.io/f/<id>)
-  var validEndpoint = provider === 'formspree' ? /^https:\/\/formspree\.io\/f\/[A-Za-z0-9]+$/.test(endpoint)
-                    : provider === 'custom' ? /^(https:\/\/|\/)/.test(endpoint) : false;
+  // Formspree: provider must be exactly "formspree" and the endpoint exactly https://formspree.io/f/<form-id>
+  // (a bracketed placeholder such as [PASTE_FORMSPREE_ENDPOINT] never validates).
+  var validEndpoint = provider === 'formspree' ? /^https:\/\/formspree\.io\/f\/[A-Za-z0-9]{6,}$/.test(endpoint.trim())
+                    : provider === 'custom' ? /^(https:\/\/[^\s]+|\/[^\s]*)$/.test(endpoint.trim()) : false;
   var configured = provider === 'netlify' ? true : validEndpoint;
 
   /* ---------- Demonstration mode notice ---------- */
@@ -56,6 +58,8 @@
       }
     }
     demoBox.classList.add('is-visible');
+  } else if (demoBox) {
+    demoBox.classList.remove('is-visible');   // valid provider + endpoint: the configuration notice must not show
   }
 
   /* ---------- Netlify Forms attributes ---------- */
@@ -248,8 +252,8 @@
       setAlert(successBox, true);
       track('contact_form_success', { interest: payload.interest });
     }).catch(function (err) {
-      if (window.console) console.error('[Buddhi Labs] Contact form submission failed:', err);
-      setAlert(errorBox, true);
+      if (window.console) console.error('[Buddhi Labs] Contact form submission failed:', err && err.message);
+      setAlert(errorBox, true, cfg.SALES_EMAIL ? 'We could not submit your inquiry at this time. Please try again or contact us directly at ' + cfg.SALES_EMAIL + '.' : 'We could not submit your inquiry at this time. Please try again or contact us using the details on this page.');
       track('contact_form_error');
     }).finally(function () { inFlight = false; setLoading(false); });
   });

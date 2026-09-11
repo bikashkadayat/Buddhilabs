@@ -22,10 +22,14 @@ excluded from the Pages artifact by `scripts/build-site.mjs`.
    **Actions** tab for the green "Deploy to GitHub Pages" run.
 5. In Pages → **Custom domain**, enter `buddhilabs.bikashkadayat.com.np` and save (GitHub will also read the `CNAME` file).
 6. Configure DNS at the DNS provider for `bikashkadayat.com.np`.
-7. Because this is a subdomain, create a **CNAME record**:
-   - Host/Name: `buddhilabs`
-   - Target/Value: `[YOUR_GITHUB_USERNAME].github.io` (replace with the GitHub account or organization that owns the repo)
-   - TTL: default (or 300 s during setup)
+7. Because this is a subdomain, create a **CNAME record** at the DNS provider:
+   ```text
+   CNAME Host/Name: buddhilabs
+   CNAME Target:    [PASTE_GITHUB_USERNAME].github.io
+   ```
+   Replace `[PASTE_GITHUB_USERNAME]` with the GitHub account or organization that owns the repository (not yet supplied).
+   TTL: default (or 300 s during setup). No `/repository-name/` path prefix is needed anywhere – with a custom domain the
+   site is served from the domain root, and all asset links are relative (`assets/...`).
 8. Wait for DNS propagation (minutes to a few hours). GitHub shows "DNS check successful" in Pages settings when ready.
 9. Tick **Enforce HTTPS** once GitHub has validated the domain and issued the certificate (can take up to an hour after DNS).
 10. Test `https://buddhilabs.bikashkadayat.com.np` and confirm the padlock, the logo, compiled styling and the contact page.
@@ -44,6 +48,14 @@ npm ci && npm run build && npm run build:site
 python3 -m http.server 8000 --directory _site      # http://localhost:8000
 ```
 
-## Not configured yet (do not assume)
-DNS CNAME record, GitHub Pages custom-domain validation and HTTPS enforcement must be done by the repository owner; the
-GitHub username is not known to this project and is written as `[YOUR_GITHUB_USERNAME]` above.
+## Status (Phase 4B)
+| Item | Status |
+|---|---|
+| `CNAME` = `buddhilabs.bikashkadayat.com.np` | ✅ |
+| Workflow `.github/workflows/deploy-pages.yml` (push to `main`, npm ci, npm run build, npm run build:site, upload `_site`, deploy) | ✅ valid |
+| Artifact contents (13 HTML pages, assets, sitemap, robots, CNAME, .nojekyll, 404) and exclusions (.env, backend, docs, reference, node_modules, Docker, source files) | ✅ verified locally |
+| GitHub username / repository | ⬜ not supplied (received as `[PASTE_GITHUB_USERNAME]` / `[PASTE_REPOSITORY_NAME]`) |
+| Repository pushed, Pages source set, custom domain entered | ⬜ owner action |
+| DNS CNAME record | ⬜ owner action |
+| Domain validated + "Enforce HTTPS" | ⬜ owner action |
+| Live URL verified | ⬜ not verified – do not assume the domain is live |

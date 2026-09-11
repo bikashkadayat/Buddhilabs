@@ -1,6 +1,6 @@
 # Formspree setup (contact form)
 
-Formspree is the selected contact-form provider for the GitHub Pages deployment. **No endpoint has been supplied yet**,
+Formspree is the selected contact-form provider for the GitHub Pages deployment. **Status (Phase 4B): endpoint still not supplied** – the value received was the placeholder `[PASTE_FORMSPREE_ENDPOINT]`, which the site deliberately refuses,
 so the form is in safe demonstration mode: it validates locally, sends nothing, never shows a false success, and shows
 "Online form submission is being configured. You can contact Buddhi Labs directly at salesbuddhilabs@gmail.com or call
 +977 9705811712."
@@ -18,8 +18,10 @@ so the form is in safe demonstration mode: it validates locally, sends nothing, 
      provider: "formspree",
      endpoint: "https://formspree.io/f/FORM_ID",
    ```
-7. Set `endpoint` exactly as above (the site accepts only `https://formspree.io/f/<id>`; anything else keeps demo mode).
-   Commit and push – GitHub Pages redeploys automatically.
+7. Set `endpoint` exactly as above (the site accepts only `https://formspree.io/f/<id>` with a 6+ character id; anything
+   else, including bracketed placeholders, keeps demo mode). Run `npm run build:js` if you edit the JS; commit and push –
+   GitHub Pages redeploys automatically. `recipientEmail` stays `salesbuddhilabs@gmail.com`; add the backup recipient
+   (kadayatxbikash2008@gmail.com) in the Formspree dashboard, not in the website code.
 8. Test a real website submission from https://buddhilabs.bikashkadayat.com.np/contact.html?interest=hrms-demo and check
    that the page shows the green success message (it appears only after Formspree returns HTTP 200).
 9. Check spam protection in Formspree (Settings → Spam): keep Formspree's built-in filtering on; optionally enable
@@ -31,8 +33,11 @@ so the form is in safe demonstration mode: it validates locally, sends nothing, 
 `full_name`, `organization`, `email`, `phone`, `interest` (slug), `interest_label`, `budget_range`, `message`,
 `consent`, `source_page`, `submitted_at`, plus `_subject` (email subject line). Nothing else is sent.
 
+## Live test
+Follow docs/formspree-live-test.md after deployment.
+
 ## Behaviour once active
-- Loading state (button disabled, "Sending…"), success only on a 2xx response, styled error on network/provider failure,
+- Loading state (button disabled, "Sending…"), success message "Thank you for contacting Buddhi Labs. Your inquiry has been received, and our team will get back to you as soon as possible." only on a 2xx response, error message "We could not submit your inquiry at this time. Please try again or contact us directly at salesbuddhilabs@gmail.com." on network/provider failure,
   duplicate submissions blocked while a request is in flight, honeypot retained, all interest preselections unchanged
   (`hrms-demo`, `ev-risk-demo`, `software-development`, `it-support`, `seo-services`, `it-training`, `general-inquiry`).
 - Formspree's free plan has a monthly submission limit; monitor usage in the dashboard.

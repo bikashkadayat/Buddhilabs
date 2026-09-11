@@ -65,8 +65,8 @@ window.BUDDHI_LABS_CONFIG = {
           Only PUBLIC site keys go here (Turnstile/reCAPTCHA site key). Secret keys never. ---- */
   form: {
     provider: "formspree",
-    endpoint: "",
-    recipientEmail: "kadayatxbikash2008@gmail.com",
+    endpoint: "",                                  // paste https://formspree.io/f/FORM_ID here (docs/formspree-setup.md) – blank = safe demo mode
+    recipientEmail: "salesbuddhilabs@gmail.com",   // verified Formspree recipient (public contact email); backup recipients are configured in the Formspree dashboard, not here
     turnstileSiteKey: "",
     recaptchaSiteKey: ""
   },

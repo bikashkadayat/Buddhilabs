@@ -186,3 +186,32 @@ account, DNS provider and a Formspree endpoint.
 
 **Go-live recommendation:** ready to publish on GitHub Pages once the owner enables Pages, creates the DNS CNAME and
 enforces HTTPS; the contact form stays in safe demo mode until the Formspree endpoint is added.
+
+---
+
+## Addendum – Phase 4B activation check (2026-09-11)
+
+**Inputs received:** Formspree endpoint, GitHub username and repository were all supplied as bracketed placeholders
+(`[PASTE_FORMSPREE_ENDPOINT]`, `[PASTE_GITHUB_USERNAME]`, `[PASTE_REPOSITORY_NAME]`). No real endpoint was added; the form
+remains in safe demonstration mode. `form.recipientEmail` set to the public sales address; the backup recipient is kept out
+of public JavaScript. Activation logic tightened (provider must be exactly `formspree`, endpoint exactly
+`https://formspree.io/f/<form-id>` with a 6+ character id; placeholders never validate). Professional success and error copy applied.
+
+| Check | Result |
+|---|---|
+| 12 pages × 320/375/768/1024/1440 px: no horizontal overflow; compiled CSS/JS loaded; console errors | PASS (60/60, 0 errors) |
+| Endpoint blank → configuration notice, no request, no false success | PASS |
+| Placeholder endpoint `[PASTE_FORMSPREE_ENDPOINT]` → still demo mode | PASS |
+| Valid endpoint (mocked 200) on page load → notice hidden, activation, POST only to the endpoint, success after 200, form reset | PASS |
+| Payload: full_name, organization, email, phone, interest, budget_range, message, consent, source_page, submitted_at (+ interest_label, _subject) | PASS |
+| Loading state; duplicate submissions blocked (3 clicks → 1 request); honeypot → no request | PASS |
+| Provider failure (mocked 500) → "We could not submit your inquiry at this time. Please try again or contact us directly at salesbuddhilabs@gmail.com." no success, button re-enabled | PASS |
+| Invalid values → inline errors with `aria-invalid` and `aria-live` | PASS |
+| HRMS / EV Risk demo CTAs preselect the right interest | PASS |
+| Sales, support, phone, WhatsApp links; no social icons, no map, no cookie banner, no trackers | PASS |
+| Canonical / OG / JSON-LD / sitemap / robots on `https://buddhilabs.bikashkadayat.com.np`; CNAME exact | PASS (unchanged from Phase 4A audit) |
+| `npm ci` + `npm run build` + `npm run build:site`: 38-file artifact with 13 HTML pages, assets, sitemap, robots, CNAME, .nojekyll, 404; no .env/backend/docs/reference/Docker/source files; no root-absolute or localhost paths; workflow YAML valid | PASS |
+
+**Not verifiable:** live Formspree delivery and GitHub Pages/DNS/HTTPS (no endpoint, username or repository supplied).
+**Recommendation:** Ready after DNS and Formspree live test – blocked only on the real Formspree endpoint and the owner's
+GitHub/DNS actions.
