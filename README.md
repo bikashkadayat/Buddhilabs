@@ -268,3 +268,4 @@ Semantic states: success uses the accent scale (`#D3F2EB` background, `#0B4A41` 
 ## 8. Content policy
 No fabricated clients, testimonials, statistics, certifications or unverified product capabilities appear on the site. Product features use "integration-ready", "based on implementation scope" and "subject to available data sources" wording until capabilities are confirmed. Unknown business details appear as `[TO BE CONFIRMED: …]`.
 # Buddhilabs
+# Buddhilabs
