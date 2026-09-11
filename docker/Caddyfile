@@ -1,0 +1,19 @@
+# Caddy reverse proxy: automatic Let's Encrypt HTTPS, HTTP→HTTPS, apex→www redirect, HSTS, API routing.
+{$APEX_DOMAIN} {
+    redir https://{$DOMAIN}{uri} permanent
+}
+
+{$DOMAIN} {
+    encode gzip zstd
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains"
+        -Server
+    }
+    # Contact API (remove this block if the api service is not used)
+    handle_path /api/* {
+        reverse_proxy api:3000
+    }
+    handle {
+        reverse_proxy web:80
+    }
+}

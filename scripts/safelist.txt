@@ -1,0 +1,2 @@
+# Classes used only from JavaScript strings that Tailwind's scanner might miss (kept for safety).
+hidden is-visible overflow-hidden is-active is-scrolled

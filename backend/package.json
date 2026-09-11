@@ -1,0 +1,16 @@
+{
+  "name": "buddhilabs-contact-api",
+  "version": "2.0.0",
+  "description": "Production contact-form API for the Buddhi Labs website (Express; SQLite or PostgreSQL; SMTP notifications)",
+  "main": "server.js",
+  "type": "module",
+  "engines": { "node": ">=22.13" },
+  "scripts": { "start": "node server.js", "dev": "node --watch server.js" },
+  "dependencies": {
+    "express": "^4.21.0",
+    "nodemailer": "^6.9.15",
+    "pg": "^8.13.0"
+  },
+  "license": "UNLICENSED",
+  "private": true
+}

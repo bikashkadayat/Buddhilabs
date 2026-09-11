@@ -1,0 +1,9 @@
+# Buddhi Labs – robots.txt
+# DOMAIN: replace https://www.buddhilabs.com with the live domain before launch.
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /404.html
+Disallow: /blog-post-template.html
+
+Sitemap: https://www.buddhilabs.com/sitemap.xml

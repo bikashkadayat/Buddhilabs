@@ -1,0 +1,8 @@
+<!-- PLACEHOLDER map. Replace with a Google Maps embed (<iframe>) or a static map image of the office location. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#F4F9F8"/>
+  <g stroke="#E6F0EE" stroke-width="2"><path d="M0 100H800M0 200H800M0 300H800M0 400H800M100 0V500M200 0V500M300 0V500M400 0V500M500 0V500M600 0V500M700 0V500"/></g>
+  <g stroke="#CFE0DC" stroke-width="10" fill="none" stroke-linecap="round"><path d="M-20 320 C150 280 250 380 420 300 S700 240 820 280"/><path d="M380 -20 C400 120 360 260 440 520"/></g>
+  <circle cx="420" cy="300" r="26" fill="#0F5A48" opacity=".2"/><circle cx="420" cy="300" r="12" fill="#0F5A48"/>
+  <text x="420" y="360" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="16" fill="#2E4E4A" font-weight="600">Buddhi Labs · Kathmandu</text>
+</svg>

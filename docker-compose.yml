@@ -1,0 +1,8 @@
+# Local / staging:  docker compose up --build   →  http://localhost:8080
+services:
+  web:
+    build: .
+    container_name: buddhilabs-web
+    ports:
+      - "8080:80"
+    restart: unless-stopped

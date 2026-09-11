@@ -1,0 +1,64 @@
+# Production on a VPS: static site + optional API + PostgreSQL behind Caddy (automatic HTTPS, HSTS, www redirect).
+#   cp .env.example .env && edit DOMAIN, POSTGRES_PASSWORD, SMTP_* etc.   (never commit .env)
+#   docker compose -f docker-compose.prod.yml up -d --build
+# Remove the api/db services if you use Formspree or Netlify Forms instead of the custom backend.
+services:
+  reverse-proxy:
+    image: caddy:2-alpine
+    container_name: buddhilabs-proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DOMAIN: ${DOMAIN:-www.buddhilabs.com}
+      APEX_DOMAIN: ${APEX_DOMAIN:-buddhilabs.com}
+    volumes:
+      - ./docker/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - web
+
+  web:
+    build: .
+    container_name: buddhilabs-web
+    restart: unless-stopped
+    expose:
+      - "80"
+
+  api:
+    build: ./backend
+    container_name: buddhilabs-api
+    restart: unless-stopped
+    env_file: ./backend/.env            # NODE_ENV, ALLOWED_ORIGINS, NOTIFY_EMAIL_TO, SMTP_*, RECAPTCHA_SECRET_KEY …
+    environment:
+      DATABASE_URL: postgres://buddhi:${POSTGRES_PASSWORD}@db:5432/buddhilabs
+      TRUST_PROXY: "true"
+    expose:
+      - "3000"                          # internal only – no public port
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:16-alpine
+    container_name: buddhilabs-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: buddhilabs
+      POSTGRES_USER: buddhi
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U buddhi -d buddhilabs"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    # No "ports:" on purpose – PostgreSQL is reachable only from the api container.
+
+volumes:
+  pgdata:
+  caddy-data:
+  caddy-config:

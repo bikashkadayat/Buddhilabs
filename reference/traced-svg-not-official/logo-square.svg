@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000.00 1000.00" role="img" aria-label="Buddhi Labs">
+    <rect width="1000" height="1000" fill="#033530"/>
+    <g transform="translate(160.00 419.65) scale(0.78772)">
+    <circle cx="102.00" cy="102.00" r="3" fill="#ffffff"/>
+    <circle cx="117.00" cy="102.00" r="3.0" fill="#ffffff"/>
+    <circle cx="132.00" cy="102.00" r="4.75" fill="#ffffff"/>
+    <circle cx="150.00" cy="102.00" r="6.0" fill="#ffffff"/>
+    <circle cx="169.00" cy="102.00" r="7.5" fill="#ffffff"/>
+    <circle cx="192.00" cy="102.00" r="10.0" fill="#ffffff"/>
+    <circle cx="117.56" cy="117.56" r="3.75" fill="#ffffff"/>
+    <circle cx="133.82" cy="133.82" r="5.5" fill="#ffffff"/>
+    <circle cx="150.08" cy="150.08" r="7.25" fill="#ffffff"/>
+    <circle cx="167.05" cy="167.05" r="10.0" fill="#ffffff"/>
+    <circle cx="102.00" cy="117.00" r="3.0" fill="#ffffff"/>
+    <circle cx="102.00" cy="132.00" r="4.75" fill="#ffffff"/>
+    <circle cx="102.00" cy="150.00" r="6.0" fill="#ffffff"/>
+    <circle cx="102.00" cy="169.00" r="7.5" fill="#ffffff"/>
+    <circle cx="102.00" cy="192.00" r="10.0" fill="#ffffff"/>
+    <circle cx="86.44" cy="117.56" r="3.75" fill="#ffffff"/>
+    <circle cx="70.18" cy="133.82" r="5.5" fill="#ffffff"/>
+    <circle cx="53.92" cy="150.08" r="7.25" fill="#ffffff"/>
+    <circle cx="36.95" cy="167.05" r="10.0" fill="#ffffff"/>
+    <circle cx="87.00" cy="102.00" r="3.0" fill="#ffffff"/>
+    <circle cx="72.00" cy="102.00" r="4.75" fill="#ffffff"/>
+    <circle cx="54.00" cy="102.00" r="6.0" fill="#ffffff"/>
+    <circle cx="35.00" cy="102.00" r="7.5" fill="#ffffff"/>
+    <circle cx="12.00" cy="102.00" r="10.0" fill="#ffffff"/>
+    <circle cx="86.44" cy="86.44" r="3.75" fill="#ffffff"/>
+    <circle cx="70.18" cy="70.18" r="5.5" fill="#ffffff"/>
+    <circle cx="53.92" cy="53.92" r="7.25" fill="#ffffff"/>
+    <circle cx="36.95" cy="36.95" r="10.0" fill="#ffffff"/>
+    <circle cx="102.00" cy="87.00" r="3.0" fill="#ffffff"/>
+    <circle cx="102.00" cy="72.00" r="4.75" fill="#ffffff"/>
+    <circle cx="102.00" cy="54.00" r="6.0" fill="#ffffff"/>
+    <circle cx="102.00" cy="35.00" r="7.5" fill="#ffffff"/>
+    <circle cx="102.00" cy="12.00" r="10.0" fill="#ffffff"/>
+    <circle cx="117.56" cy="86.44" r="3.75" fill="#ffffff"/>
+    <circle cx="133.82" cy="70.18" r="5.5" fill="#ffffff"/>
+    <circle cx="150.08" cy="53.92" r="7.25" fill="#ffffff"/>
+    <circle cx="167.05" cy="36.95" r="10.0" fill="#ffffff"/>
+    <path transform="translate(220.000 132.600) scale(0.08632 -0.08632)" d="M641 192Q641 102 579.0 51.0Q517 0 405 0H56V705H394Q502 705 563.5 657.0Q625 609 625 522Q625 460 592.5 418.5Q560 377 506 362Q568 348 604.5 300.5Q641 253 641 192ZM252 425H351Q425 425 425 486Q425 549 351 549H252ZM440 220Q440 252 420.5 269.0Q401 286 365 286H252V158H366Q440 158 440 220Z" fill="#ffffff"/>
+    <path transform="translate(283.962 132.600) scale(0.08632 -0.08632)" d="M248 705V296Q248 239 274.5 208.0Q301 177 355 177Q409 177 436.5 208.5Q464 240 464 296V705H660V296Q660 199 619.0 130.5Q578 62 507.5 27.5Q437 -7 351 -7Q265 -7 197.5 27.5Q130 62 91.5 130.0Q53 198 53 296V705Z" fill="#ffffff"/>
+    <path transform="translate(351.463 132.600) scale(0.08632 -0.08632)" d="M703 353Q703 251 657.5 171.0Q612 91 528.5 45.5Q445 0 335 0H56V705H335Q446 705 529.5 660.5Q613 616 658.0 536.0Q703 456 703 353ZM504 353Q504 440 455.0 487.5Q406 535 320 535H252V173H320Q406 173 455.0 220.0Q504 267 504 353Z" fill="#ffffff"/>
+    <path transform="translate(420.950 132.600) scale(0.08632 -0.08632)" d="M703 353Q703 251 657.5 171.0Q612 91 528.5 45.5Q445 0 335 0H56V705H335Q446 705 529.5 660.5Q613 616 658.0 536.0Q703 456 703 353ZM504 353Q504 440 455.0 487.5Q406 535 320 535H252V173H320Q406 173 455.0 220.0Q504 267 504 353Z" fill="#ffffff"/>
+    <path transform="translate(490.437 132.600) scale(0.08632 -0.08632)" d="M687 705V0H491V283H252V0H56V705H252V440H491V705Z" fill="#ffffff"/>
+    <path transform="translate(560.614 132.600) scale(0.08632 -0.08632)" d="M252 705V0H56V705Z" fill="#ffffff"/>
+    <path transform="translate(626.130 132.600) scale(0.08632 -0.08632)" d="M252 150H471V0H56V705H252Z" fill="#ffffff"/>
+    <path transform="translate(674.555 132.600) scale(0.08632 -0.08632)" d="M502 115H252L214 0H8L265 705H491L747 0H540ZM453 265 377 493 302 265Z" fill="#ffffff"/>
+    <path transform="translate(745.768 132.600) scale(0.08632 -0.08632)" d="M641 192Q641 102 579.0 51.0Q517 0 405 0H56V705H394Q502 705 563.5 657.0Q625 609 625 522Q625 460 592.5 418.5Q560 377 506 362Q568 348 604.5 300.5Q641 253 641 192ZM252 425H351Q425 425 425 486Q425 549 351 549H252ZM440 220Q440 252 420.5 269.0Q401 286 365 286H252V158H366Q440 158 440 220Z" fill="#ffffff"/>
+    <path transform="translate(809.730 132.600) scale(0.08632 -0.08632)" d="M35 219H244Q247 182 266.0 165.0Q285 148 315 148Q342 148 359.5 161.5Q377 175 377 199Q377 230 348.0 247.0Q319 264 254 285Q185 308 142.5 329.5Q100 351 68.5 392.5Q37 434 37 501Q37 569 71.0 617.5Q105 666 165.0 691.0Q225 716 301 716Q424 716 497.5 658.5Q571 601 576 497H363Q362 529 343.5 545.0Q325 561 296 561Q274 561 260.0 548.0Q246 535 246 511Q246 491 261.5 476.5Q277 462 300.0 451.5Q323 441 368 425Q435 402 478.5 379.5Q522 357 553.5 316.5Q585 276 585 214Q585 151 553.5 101.0Q522 51 462.5 22.0Q403 -7 322 -7Q199 -7 120.0 51.5Q41 110 35 219Z" fill="#ffffff"/>
+    </g>
+</svg>
