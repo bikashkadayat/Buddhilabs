@@ -80,6 +80,7 @@
   // Slugs used by CTA links across the site → <option value="...">
   var interestAlias = {
     'hrms-demo': 'hrms-demo', 'hrms': 'hrms-demo',
+    'hrms-subscription': 'hrms-subscription', 'hrms-plan': 'hrms-subscription', 'subscription': 'hrms-subscription',
     'ev-risk-demo': 'ev-risk-demo', 'ev': 'ev-risk-demo', 'ev-risk': 'ev-risk-demo',
     'demo': 'product-demo',
     'software-development': 'software-development', 'software': 'software-development',
@@ -92,10 +93,12 @@
     subjectSelect.value = interestAlias[interest];
     if (interestAlias[interest] === 'hrms-demo') track('hrms_demo_form_open');
     if (interestAlias[interest] === 'ev-risk-demo') track('ev_risk_demo_form_open');
+    var plan = (params.get('plan') || '').toLowerCase().replace(/[^a-z0-9-]/g, '');
+    if (interestAlias[interest] === 'hrms-subscription') track('hrms_subscription_form_open', plan ? { plan: plan } : undefined);
     var ctx = document.getElementById('form-context');
     if (ctx) {
       var label = subjectSelect.options[subjectSelect.selectedIndex].text;
-      ctx.textContent = 'You are enquiring about: ' + label + '. You can change this below.';
+      ctx.textContent = 'You are enquiring about: ' + label + (plan ? ' (' + plan + ' plan)' : '') + '. You can change this below.';
       ctx.hidden = false;
     }
   }

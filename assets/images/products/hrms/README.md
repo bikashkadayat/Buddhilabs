@@ -1,3 +1,8 @@
-Place approved, redacted product screenshots here (see docs/product-image-guide.md).
-Expected files: dashboard.webp, employee-management.webp, attendance.webp, leave-management.webp, payroll.webp
-Recommended size 1440×900 (16:10), ≤ 200 KB each. Until files exist, the site shows a "Product preview coming soon" visual.
+Product screenshots for Buddhi Labs HRMS (see docs/product-image-guide.md). All files are 1440 × 633 WebP, captured 2026-10-04.
+
+| File | Used on |
+|---|---|
+| dashboard.webp | index.html hero, products.html card, hrms.html hero |
+| work-queue.webp, task-dashboard.webp, task-board.webp, documents.webp, people-attendance.webp, apply-leave.webp, leave-history.webp, assets.webp, unfinished-work.webp | hrms.html "Inside the product" gallery |
+
+Replace a file with a redacted or updated capture of the same name to update the site; keep the same dimensions.
