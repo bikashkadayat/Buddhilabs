@@ -17,7 +17,7 @@ needed to replace placeholder graphics. Provide the values to the developer, or 
 | 6 | **Google Maps URL/embed** | ⬜ still required (map stays hidden) | `business-config.js` → `contact.mapsUrl` |
 | 7 | **WhatsApp number** | ✅ wa.me/9779705811712 | `business-config.js` → `contact.whatsapp` |
 | 8 | **Social media URLs** | ⬜ still required: LinkedIn, Facebook, Instagram, YouTube, X/Twitter (icons hidden) | `business-config.js` → `social` |
-| 9 | **Real team member names, roles** | ✅ Confirmed: Bikash Kadayat (Founder & CEO), Karan Rai (Chief Marketing Officer), Nabraj Kadayat (Chief Operations Manager) – shown on team.html, about.html, index.html | Photos and LinkedIn URLs still pending: replace the `.avatar-initials` element in team.html with an `<img>` (square, 400×400+, `assets/images/team/`) |
+| 9 | **Real team member names, roles** | ✅ Confirmed (updated 2026-10-04): Bikash Kadayat (Founder & CEO), Nabraj Kadayat (Chief Operations Manager), Nirmal B.K (Full Stack Developer), Ram Chandra KC (UI/UX & Customer Success), Bharat Rawal (Sales & Marketing Executive) – shown on team.html, about.html, index.html. Photos live for all five. | Photos and LinkedIn URLs still pending: replace the `.avatar-initials` element in team.html with an `<img>` (square, 400×400+, `assets/images/team/`) |
 | 10 | **Company history / founding year** | about.html "Who we are" (HTML comment placeholder) | Edit about.html |
 | 11 | **Client logos** | Not shown (no section until logos are approved) | Add a "Trusted by" strip on index.html once logos and permission are available |
 | 12 | **Client testimonials** | Not shown (removed; no fabricated quotes) | Add a testimonials section on index.html once written approval is received |
