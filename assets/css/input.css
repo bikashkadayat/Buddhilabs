@@ -456,3 +456,6 @@ body.lightbox-open { overflow: hidden; }
   border-top: 1px solid var(--brand-border); font-size: .85rem; font-weight: 600; color: var(--brand-primary);
 }
 .nav-menu-all:hover { color: var(--brand-primary-hover); }
+
+/* The hidden attribute must always win over component display rules (lightbox, social icons, alerts). */
+[hidden] { display: none !important; }
