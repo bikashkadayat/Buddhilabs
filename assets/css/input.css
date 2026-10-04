@@ -353,21 +353,6 @@ h1, h2, h3, h4, .font-heading {
 .rotate-words > span.is-leaving { opacity: 0; transform: translateY(-.35em); }
 @media (max-width: 639px) { .rotate-words > span { white-space: normal; } }
 
-/* Product showcase (hero): tab strip + cross-fading screenshots */
-.showcase-tabs { display: flex; flex-wrap: wrap; gap: .375rem; }
-.showcase-tab {
-  padding: .45rem .9rem; border-radius: 9999px; font-size: .8125rem; font-weight: 600; line-height: 1;
-  color: rgba(255,255,255,.78); background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.14);
-  transition: background-color .18s, color .18s, border-color .18s;
-}
-.showcase-tab:hover { color: #fff; background: rgba(255,255,255,.12); }
-.showcase-tab[aria-selected="true"] { background: var(--brand-accent-soft); color: var(--brand-dark); border-color: transparent; }
-.showcase-stage { position: relative; aspect-ratio: 1440 / 633; background: var(--brand-dark); }
-.screen-frame .showcase-stage img {
-  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-  opacity: 0; transition: opacity .55s ease;
-}
-.screen-frame .showcase-stage img.is-active { opacity: 1; }
 /* Subtle 3D tilt that follows the pointer (desktop only, see main.js) */
 [data-tilt] { transition: transform .35s ease; will-change: transform; transform-style: preserve-3d; }
 

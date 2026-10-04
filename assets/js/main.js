@@ -6,7 +6,7 @@
    - Smooth scroll for in-page anchors (with reduced-motion respect)
    - Scroll-reveal animations (progressive enhancement, staggered)
    - Reading progress line, back-to-top button
-   - Rotating hero phrase, product showcase tabs, count-up stats
+   - Rotating hero phrase, count-up stats
    - Card spotlight and screenshot tilt (fine pointers only)
    - HRMS subscription length picker, screenshot lightbox
    - Current year in footer
@@ -351,38 +351,6 @@
     function stop() { if (timer) clearInterval(timer); timer = null; }
     document.addEventListener('visibilitychange', function () { document.hidden ? stop() : start(); });
     start();
-  });
-
-  /* ---------- Product showcase: tabs + autoplay + keyboard ---------- */
-  document.querySelectorAll('[data-showcase]').forEach(function (box) {
-    var tabs = Array.prototype.slice.call(box.querySelectorAll('[role="tab"]'));
-    var panels = Array.prototype.slice.call(box.querySelectorAll('[data-showcase-panel]'));
-    if (!tabs.length || tabs.length !== panels.length) return;
-    var idx = 0, timer, paused = false, delay = parseInt(box.getAttribute('data-showcase-interval') || '5000', 10);
-    function show(n, focus) {
-      idx = (n + tabs.length) % tabs.length;
-      tabs.forEach(function (t, k) {
-        var on = k === idx;
-        t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1;
-        if (on && focus) t.focus();
-      });
-      panels.forEach(function (p, k) { p.classList.toggle('is-active', k === idx); if (k === idx && p.getAttribute('loading') === 'lazy') p.loading = 'eager'; });
-    }
-    function play() { if (reduceMotion || paused) return; stop(); timer = setInterval(function () { show(idx + 1); }, delay); }
-    function stop() { if (timer) clearInterval(timer); timer = null; }
-    tabs.forEach(function (t, k) {
-      t.addEventListener('click', function () { show(k); paused = true; stop(); window.buddhiTrack('showcase_tab_click', { tab: t.getAttribute('data-tab') || k }); });
-      t.addEventListener('keydown', function (e) {
-        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); show(idx + 1, true); paused = true; stop(); }
-        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); show(idx - 1, true); paused = true; stop(); }
-        if (e.key === 'Home') { e.preventDefault(); show(0, true); }
-        if (e.key === 'End') { e.preventDefault(); show(tabs.length - 1, true); }
-      });
-    });
-    box.addEventListener('mouseenter', stop); box.addEventListener('mouseleave', play);
-    box.addEventListener('focusin', stop); box.addEventListener('focusout', play);
-    document.addEventListener('visibilitychange', function () { document.hidden ? stop() : play(); });
-    show(0); play();
   });
 
   /* ---------- Count-up statistics ---------- */

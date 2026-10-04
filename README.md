@@ -19,7 +19,7 @@ SaaS products (**HRMS System**, **EV Risk Intelligence System**) and IT services
 ### Why this stack
 * **Framework-light.** A marketing site does not need a SPA. Plain HTML loads fast, is trivially crawlable, and any developer can edit it.
 * **Compiled Tailwind CSS** (`tailwind.config.js` + `assets/css/input.css` → `assets/css/site.min.css`, ~30 KB minified). The compiled file is committed, so the site runs from any static server without a build step; run `npm run build` after changes.
-* **Vanilla JS** (`main.js`, `contact-form.js`, minified to `*.min.js`) for the mobile menu, consent banner, consent-gated analytics, form validation and submission, plus the interactive layer: staggered scroll reveal, reading-progress line, back-to-top, rotating hero phrase, HRMS screenshot showcase tabs, count-up stats, card spotlight and screenshot tilt (fine pointers only), subscription-length picker and the screenshot lightbox. Everything respects `prefers-reduced-motion`. No runtime dependencies.
+* **Vanilla JS** (`main.js`, `contact-form.js`, minified to `*.min.js`) for the mobile menu, consent banner, consent-gated analytics, form validation and submission, plus the interactive layer: staggered scroll reveal, reading-progress line, back-to-top, rotating hero phrase, count-up stats, card spotlight and screenshot tilt (fine pointers only), subscription-length picker and the screenshot lightbox. Everything respects `prefers-reduced-motion`. No runtime dependencies.
 * **Backend is optional and isolated.** The form works in mock mode today; switching to the Express API or a form service is a one-line change.
 
 ### How content is organized
