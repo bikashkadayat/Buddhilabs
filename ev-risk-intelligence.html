@@ -141,7 +141,16 @@
 
       <nav class="hidden lg:flex items-center gap-8" aria-label="Main navigation">
         <a href="index.html" class="nav-link" data-nav="index">Home</a>
-        <a href="products.html" class="nav-link" data-nav="products">Products</a>
+        <div class="nav-item" data-nav-menu>
+          <a href="products.html" class="nav-link" data-nav="products">Products</a>
+          <button type="button" class="nav-caret" aria-expanded="false" aria-controls="products-menu" aria-label="Open the Products menu"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg></button>
+          <div id="products-menu" class="nav-menu" aria-label="Products">
+            <a href="hrms.html" class="nav-menu-link"><span class="nav-menu-title">Buddhi Labs HRMS</span><span class="nav-menu-desc">Workforce, attendance, leave, tasks, documents and assets</span></a>
+            <a href="ev-risk-intelligence.html" class="nav-menu-link"><span class="nav-menu-title">EV Risk Intelligence System</span><span class="nav-menu-desc">Risk visibility for electric vehicle fleets</span></a>
+            <a href="hrms.html#pricing" class="nav-menu-link"><span class="nav-menu-title">HRMS pricing</span><span class="nav-menu-desc">Subscriptions from NPR 999 per month</span></a>
+            <a href="products.html" class="nav-menu-all">Compare both products <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg></a>
+          </div>
+        </div>
         <a href="services.html" class="nav-link" data-nav="services">Services</a>
         <a href="team.html" class="nav-link" data-nav="team">Team</a>
         <a href="about.html" class="nav-link" data-nav="about">About</a>
@@ -194,10 +203,12 @@
         <div class="lg:col-span-6">
           <div class="screen-frame">
             <!-- Replace with an approved screenshot: assets/images/products/ev-risk/dashboard.webp (docs/product-image-guide.md) -->
-            <div class="preview-placeholder" role="img" aria-label="EV Risk Intelligence System product preview coming soon">
+            <div class="preview-placeholder" role="img" aria-label="EV Risk Intelligence System: fleet overview, risk scoring, alerts and reports. Live demo available on request.">
               <img src="assets/brand/logo-mark.png" alt="" width="56" height="56" class="w-14 h-14 rounded-xl" loading="lazy" decoding="async">
-              <p class="mt-4 font-heading font-semibold text-lg">Product preview coming soon</p>
-              <p class="mt-1 text-sm text-primary-100 max-w-xs">Approved EV Risk Intelligence screenshots will appear here once available.</p>
+              <p class="mt-4 font-heading font-semibold text-xl">EV Risk Intelligence System</p>
+              <p class="mt-1 text-sm text-primary-100">Risk visibility for electric vehicle fleets</p>
+              <ul class="mt-5 flex flex-wrap justify-center gap-2" aria-hidden="true"><li class="badge badge-dark">Fleet overview</li><li class="badge badge-dark">Risk scoring</li><li class="badge badge-dark">Alerts</li><li class="badge badge-dark">Reports</li></ul>
+              <p class="mt-5 text-xs text-primary-200">Live demo available on request</p>
             </div>
           </div>
         </div>

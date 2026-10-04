@@ -149,7 +149,16 @@
 
       <nav class="hidden lg:flex items-center gap-8" aria-label="Main navigation">
         <a href="index.html" class="nav-link" data-nav="index">Home</a>
-        <a href="products.html" class="nav-link" data-nav="products">Products</a>
+        <div class="nav-item" data-nav-menu>
+          <a href="products.html" class="nav-link" data-nav="products">Products</a>
+          <button type="button" class="nav-caret" aria-expanded="false" aria-controls="products-menu" aria-label="Open the Products menu"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg></button>
+          <div id="products-menu" class="nav-menu" aria-label="Products">
+            <a href="hrms.html" class="nav-menu-link"><span class="nav-menu-title">Buddhi Labs HRMS</span><span class="nav-menu-desc">Workforce, attendance, leave, tasks, documents and assets</span></a>
+            <a href="ev-risk-intelligence.html" class="nav-menu-link"><span class="nav-menu-title">EV Risk Intelligence System</span><span class="nav-menu-desc">Risk visibility for electric vehicle fleets</span></a>
+            <a href="hrms.html#pricing" class="nav-menu-link"><span class="nav-menu-title">HRMS pricing</span><span class="nav-menu-desc">Subscriptions from NPR 999 per month</span></a>
+            <a href="products.html" class="nav-menu-all">Compare both products <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg></a>
+          </div>
+        </div>
         <a href="services.html" class="nav-link" data-nav="services">Services</a>
         <a href="team.html" class="nav-link" data-nav="team">Team</a>
         <a href="about.html" class="nav-link" data-nav="about">About</a>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Meet the Team | Buddhi Labs</title>
-  <meta name="description" content="Meet the leadership team behind Buddhi Labs, building practical SaaS products, software solutions, IT support, SEO services, and technology training.">
+  <meta name="description" content="Meet the leadership team behind Buddhi Labs: Bikash Kadayat (Founder & CEO), Karan Rai (CMO) and Nabraj Kadayat (Chief Operations Manager), who they are, what they own and who to ask.">
   <meta name="robots" content="index, follow">
   <!-- DOMAIN: https://buddhilabs.bikashkadayat.com.np is a placeholder. To change it, search-and-replace it in all *.html files,
        sitemap.xml, robots.txt and assets/js/site-config.js (see docs/deployment-checklist.md). -->
@@ -67,36 +67,46 @@
   "@graph": [
     {
       "@type": "Person",
+      "@id": "https://buddhilabs.bikashkadayat.com.np/team.html#bikash-kadayat",
       "name": "Bikash Kadayat",
       "jobTitle": "Founder & CEO",
+      "description": "Leads the company\u2019s vision, product direction and long-term strategy, with a focus on practical software that helps organizations work smarter.",
+      "knowsAbout": ["Strategy", "Product direction", "Client partnerships"],
+      "image": "https://buddhilabs.bikashkadayat.com.np/assets/images/team/bikash-kadayat@2x.webp",
       "worksFor": {
         "@type": "Organization",
         "name": "Buddhi Labs",
         "url": "https://buddhilabs.bikashkadayat.com.np/"
       },
-      "url": "https://buddhilabs.bikashkadayat.com.np/team.html"
+      "url": "https://buddhilabs.bikashkadayat.com.np/team.html#bikash-kadayat"
     },
     {
       "@type": "Person",
+      "@id": "https://buddhilabs.bikashkadayat.com.np/team.html#karan-rai",
       "name": "Karan Rai",
       "jobTitle": "Chief Marketing Officer",
+      "description": "Leads marketing strategy and business communication, connecting Buddhi Labs products and services with the organizations that need them.",
+      "knowsAbout": ["Marketing strategy", "Brand & communication", "Go-to-market"],
       "worksFor": {
         "@type": "Organization",
         "name": "Buddhi Labs",
         "url": "https://buddhilabs.bikashkadayat.com.np/"
       },
-      "url": "https://buddhilabs.bikashkadayat.com.np/team.html"
+      "url": "https://buddhilabs.bikashkadayat.com.np/team.html#karan-rai"
     },
     {
       "@type": "Person",
+      "@id": "https://buddhilabs.bikashkadayat.com.np/team.html#nabraj-kadayat",
       "name": "Nabraj Kadayat",
       "jobTitle": "Chief Operations Manager",
+      "description": "Manages operational coordination so that projects, onboarding and support move smoothly from planning to implementation.",
+      "knowsAbout": ["Delivery coordination", "Onboarding", "Support operations"],
       "worksFor": {
         "@type": "Organization",
         "name": "Buddhi Labs",
         "url": "https://buddhilabs.bikashkadayat.com.np/"
       },
-      "url": "https://buddhilabs.bikashkadayat.com.np/team.html"
+      "url": "https://buddhilabs.bikashkadayat.com.np/team.html#nabraj-kadayat"
     }
   ]
 }
@@ -119,7 +129,16 @@
 
       <nav class="hidden lg:flex items-center gap-8" aria-label="Main navigation">
         <a href="index.html" class="nav-link" data-nav="index">Home</a>
-        <a href="products.html" class="nav-link" data-nav="products">Products</a>
+        <div class="nav-item" data-nav-menu>
+          <a href="products.html" class="nav-link" data-nav="products">Products</a>
+          <button type="button" class="nav-caret" aria-expanded="false" aria-controls="products-menu" aria-label="Open the Products menu"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg></button>
+          <div id="products-menu" class="nav-menu" aria-label="Products">
+            <a href="hrms.html" class="nav-menu-link"><span class="nav-menu-title">Buddhi Labs HRMS</span><span class="nav-menu-desc">Workforce, attendance, leave, tasks, documents and assets</span></a>
+            <a href="ev-risk-intelligence.html" class="nav-menu-link"><span class="nav-menu-title">EV Risk Intelligence System</span><span class="nav-menu-desc">Risk visibility for electric vehicle fleets</span></a>
+            <a href="hrms.html#pricing" class="nav-menu-link"><span class="nav-menu-title">HRMS pricing</span><span class="nav-menu-desc">Subscriptions from NPR 999 per month</span></a>
+            <a href="products.html" class="nav-menu-all">Compare both products <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg></a>
+          </div>
+        </div>
         <a href="services.html" class="nav-link" data-nav="services">Services</a>
         <a href="team.html" class="nav-link" data-nav="team">Team</a>
         <a href="about.html" class="nav-link" data-nav="about">About</a>
@@ -174,32 +193,129 @@
         <div class="max-w-2xl reveal">
           <span class="eyebrow">Leadership</span>
           <h2 id="leadership-title" class="mt-3 text-3xl lg:text-4xl font-bold text-gray-900">Leadership Team</h2>
-          <p class="mt-4 text-lg text-gray-600">Our leadership team brings together product thinking, operational focus, and market-driven strategy to help Buddhi Labs create meaningful technology solutions.</p>
+          <p class="mt-4 text-lg text-gray-600">A small leadership team with clear ownership: product and strategy, marketing and communication, and the operations that keep delivery and support on track.</p>
         </div>
         <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
           <article class="card card-hover team-card p-8 flex flex-col items-center text-center reveal">
-            <span class="avatar-initials" role="img" aria-label="Bikash Kadayat, Founder and CEO of Buddhi Labs"><span aria-hidden="true">BK</span></span>
+            <img src="assets/images/team/bikash-kadayat.webp" srcset="assets/images/team/bikash-kadayat.webp 1x, assets/images/team/bikash-kadayat@2x.webp 2x" alt="Bikash Kadayat, Founder and CEO of Buddhi Labs" width="400" height="400" class="avatar-photo" loading="lazy" decoding="async">
             <h3 class="mt-5 text-xl font-semibold text-gray-900">Bikash Kadayat</h3>
             <p class="mt-1 text-sm font-semibold uppercase tracking-wider text-primary">Founder & CEO</p>
-            <p class="mt-4 text-sm text-gray-600 leading-relaxed">Bikash Kadayat is the Founder and CEO of Buddhi Labs. He leads the company’s vision, product direction, and long-term strategy, with a focus on building practical software solutions that help organizations work smarter.</p>
-            <!-- Social links: add an approved LinkedIn URL here when supplied (see docs/phase-3-inputs-required.md). -->
+            <p class="mt-4 text-sm text-gray-600 leading-relaxed">Leads the company’s vision, product direction and long-term strategy, with a focus on practical software that helps organizations work smarter.</p>
+            <ul class="mt-5 flex flex-wrap justify-center gap-2" aria-label="Focus areas"><li class="badge">Strategy</li><li class="badge">Product direction</li><li class="badge">Client partnerships</li></ul>
+            <a href="#bikash-kadayat" class="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline">Full profile <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg></a>
           </article>
           <article class="card card-hover team-card p-8 flex flex-col items-center text-center reveal">
             <span class="avatar-initials" role="img" aria-label="Karan Rai, Chief Marketing Officer of Buddhi Labs"><span aria-hidden="true">KR</span></span>
             <h3 class="mt-5 text-xl font-semibold text-gray-900">Karan Rai</h3>
             <p class="mt-1 text-sm font-semibold uppercase tracking-wider text-primary">Chief Marketing Officer</p>
-            <p class="mt-4 text-sm text-gray-600 leading-relaxed">Karan Rai leads marketing strategy and business communication at Buddhi Labs. He focuses on connecting the company’s SaaS products and technology services with the real needs of organizations and customers.</p>
-            <!-- Social links: add an approved LinkedIn URL here when supplied (see docs/phase-3-inputs-required.md). -->
+            <p class="mt-4 text-sm text-gray-600 leading-relaxed">Leads marketing strategy and business communication, connecting Buddhi Labs products and services with the organizations that need them.</p>
+            <ul class="mt-5 flex flex-wrap justify-center gap-2" aria-label="Focus areas"><li class="badge">Marketing strategy</li><li class="badge">Brand & communication</li><li class="badge">Go-to-market</li></ul>
+            <a href="#karan-rai" class="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline">Full profile <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg></a>
           </article>
           <article class="card card-hover team-card p-8 flex flex-col items-center text-center reveal">
             <span class="avatar-initials" role="img" aria-label="Nabraj Kadayat, Chief Operations Manager of Buddhi Labs"><span aria-hidden="true">NK</span></span>
             <h3 class="mt-5 text-xl font-semibold text-gray-900">Nabraj Kadayat</h3>
             <p class="mt-1 text-sm font-semibold uppercase tracking-wider text-primary">Chief Operations Manager</p>
-            <p class="mt-4 text-sm text-gray-600 leading-relaxed">Nabraj Kadayat manages operational coordination at Buddhi Labs. He focuses on supporting effective delivery, improving internal processes, and helping projects move smoothly from planning to implementation.</p>
-            <!-- Social links: add an approved LinkedIn URL here when supplied (see docs/phase-3-inputs-required.md). -->
+            <p class="mt-4 text-sm text-gray-600 leading-relaxed">Manages operational coordination so that projects, onboarding and support move smoothly from planning to implementation.</p>
+            <ul class="mt-5 flex flex-wrap justify-center gap-2" aria-label="Focus areas"><li class="badge">Delivery coordination</li><li class="badge">Onboarding</li><li class="badge">Support operations</li></ul>
+            <a href="#nabraj-kadayat" class="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline">Full profile <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg></a>
           </article>
         </div>
-        <p class="mt-6 text-xs text-gray-500">Profile photographs will replace the initial avatars once approved.</p>
+      </div>
+    </section>
+
+    <!-- ================= LEADERSHIP PROFILES ================= -->
+    <section class="bg-gray-50 border-y border-gray-100" aria-labelledby="profiles-title">
+      <div class="container-x pt-16 lg:pt-24">
+        <div class="max-w-2xl reveal">
+          <span class="eyebrow">In detail</span>
+          <h2 id="profiles-title" class="mt-3 text-3xl lg:text-4xl font-bold text-gray-900">Who does what at Buddhi Labs</h2>
+          <p class="mt-4 text-lg text-gray-600">What each leader owns, and who to ask when you need an answer.</p>
+        </div>
+        <article id="bikash-kadayat" class="profile-anchor grid lg:grid-cols-12 gap-8 lg:gap-12 items-start py-12 lg:py-16  reveal">
+          <div class="lg:col-span-4 flex flex-col items-center lg:items-start text-center lg:text-left">
+            <img src="assets/images/team/bikash-kadayat.webp" srcset="assets/images/team/bikash-kadayat.webp 1x, assets/images/team/bikash-kadayat@2x.webp 2x" alt="Bikash Kadayat, Founder and CEO of Buddhi Labs" width="400" height="400" class="avatar-photo avatar-photo-lg" loading="lazy" decoding="async">
+            <h3 class="mt-6 text-2xl font-semibold text-gray-900">Bikash Kadayat</h3>
+            <p class="mt-1 text-sm font-semibold uppercase tracking-wider text-primary">Founder & CEO</p>
+            <ul class="mt-4 flex flex-wrap justify-center lg:justify-start gap-2" aria-label="Focus areas"><li class="badge">Strategy</li><li class="badge">Product direction</li><li class="badge">Client partnerships</li></ul>
+          </div>
+          <div class="lg:col-span-8">
+            <p class="text-gray-600 leading-relaxed text-lg">Bikash Kadayat founded Buddhi Labs to build software around the operational problems organizations in Nepal deal with every day: keeping employee, attendance, leave and payroll information organized, and making sense of risk across electric vehicle operations.</p><p class="text-gray-600 leading-relaxed mt-4">He sets the direction for both products, Buddhi Labs HRMS and the EV Risk Intelligence System, and stays close to how customers use them so that the roadmap reflects real workflows rather than feature lists. On service projects he is involved from the first conversation through scoping, so that what is promised in writing is what gets delivered.</p>
+            <div class="mt-8 grid md:grid-cols-2 gap-6">
+              <div class="card p-6">
+                <h4 class="font-semibold text-gray-900">What Bikash is responsible for</h4>
+                <ul class="check-list mt-4 text-sm text-gray-700"><li><span>Company vision, strategy and long-term planning</span></li><li><span>Product roadmap for HRMS and EV Risk Intelligence</span></li><li><span>Key client relationships, partnerships and resellers</span></li><li><span>Engineering standards, security and documentation practices</span></li></ul>
+              </div>
+              <div class="card card-dark p-6 flex flex-col">
+                <h4 class="font-semibold">Best person to ask about</h4>
+                <p class="mt-2 text-sm text-primary-100 flex-1">Product roadmap, partnerships and large implementations. Messages reach the team through the contact form and are routed to the right person.</p>
+                <a href="contact.html?interest=partnership" class="btn btn-accent btn-sm mt-5 self-start">Discuss a partnership</a>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article id="karan-rai" class="profile-anchor grid lg:grid-cols-12 gap-8 lg:gap-12 items-start py-12 lg:py-16 border-t border-gray-100 reveal">
+          <div class="lg:col-span-4 flex flex-col items-center lg:items-start text-center lg:text-left">
+            <span class="avatar-initials avatar-initials-lg" role="img" aria-label="Karan Rai, Chief Marketing Officer of Buddhi Labs"><span aria-hidden="true">KR</span></span>
+            <h3 class="mt-6 text-2xl font-semibold text-gray-900">Karan Rai</h3>
+            <p class="mt-1 text-sm font-semibold uppercase tracking-wider text-primary">Chief Marketing Officer</p>
+            <ul class="mt-4 flex flex-wrap justify-center lg:justify-start gap-2" aria-label="Focus areas"><li class="badge">Marketing strategy</li><li class="badge">Brand & communication</li><li class="badge">Go-to-market</li></ul>
+          </div>
+          <div class="lg:col-span-8">
+            <p class="text-gray-600 leading-relaxed text-lg">Karan Rai is responsible for how Buddhi Labs presents its products and services to the market, from positioning and messaging to the campaigns and content that bring new organizations to the company.</p><p class="text-gray-600 leading-relaxed mt-4">He works closely with sales and product so that what is communicated matches what the products actually do, and he brings customer feedback back into the planning of HRMS, EV Risk Intelligence and the SEO service line.</p>
+            <div class="mt-8 grid md:grid-cols-2 gap-6">
+              <div class="card p-6">
+                <h4 class="font-semibold text-gray-900">What Karan is responsible for</h4>
+                <ul class="check-list mt-4 text-sm text-gray-700"><li><span>Marketing strategy, brand and messaging</span></li><li><span>Go-to-market planning for HRMS and EV Risk Intelligence</span></li><li><span>Website, content and campaign direction</span></li><li><span>Market and customer feedback into product planning</span></li></ul>
+              </div>
+              <div class="card card-dark p-6 flex flex-col">
+                <h4 class="font-semibold">Best person to ask about</h4>
+                <p class="mt-2 text-sm text-primary-100 flex-1">Marketing collaborations, media and SEO engagements. Messages reach the team through the contact form and are routed to the right person.</p>
+                <a href="contact.html?interest=seo-services" class="btn btn-accent btn-sm mt-5 self-start">Talk about SEO and marketing</a>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article id="nabraj-kadayat" class="profile-anchor grid lg:grid-cols-12 gap-8 lg:gap-12 items-start py-12 lg:py-16 border-t border-gray-100 reveal">
+          <div class="lg:col-span-4 flex flex-col items-center lg:items-start text-center lg:text-left">
+            <span class="avatar-initials avatar-initials-lg" role="img" aria-label="Nabraj Kadayat, Chief Operations Manager of Buddhi Labs"><span aria-hidden="true">NK</span></span>
+            <h3 class="mt-6 text-2xl font-semibold text-gray-900">Nabraj Kadayat</h3>
+            <p class="mt-1 text-sm font-semibold uppercase tracking-wider text-primary">Chief Operations Manager</p>
+            <ul class="mt-4 flex flex-wrap justify-center lg:justify-start gap-2" aria-label="Focus areas"><li class="badge">Delivery coordination</li><li class="badge">Onboarding</li><li class="badge">Support operations</li></ul>
+          </div>
+          <div class="lg:col-span-8">
+            <p class="text-gray-600 leading-relaxed text-lg">Nabraj Kadayat keeps the day-to-day operations of Buddhi Labs running: coordinating delivery across projects, improving internal processes and making sure clients have a clear point of contact from kickoff to handover.</p><p class="text-gray-600 leading-relaxed mt-4">He oversees HRMS onboarding, user training sessions and the support desk during business hours, and tracks timelines and open items so that nothing agreed in a scope document is left behind.</p>
+            <div class="mt-8 grid md:grid-cols-2 gap-6">
+              <div class="card p-6">
+                <h4 class="font-semibold text-gray-900">What Nabraj is responsible for</h4>
+                <ul class="check-list mt-4 text-sm text-gray-700"><li><span>Project delivery coordination and timelines</span></li><li><span>HRMS onboarding, data import and user training</span></li><li><span>IT support operations during business hours</span></li><li><span>Internal processes, documentation and handover</span></li></ul>
+              </div>
+              <div class="card card-dark p-6 flex flex-col">
+                <h4 class="font-semibold">Best person to ask about</h4>
+                <p class="mt-2 text-sm text-primary-100 flex-1">Implementation timelines, onboarding and support. Messages reach the team through the contact form and are routed to the right person.</p>
+                <a href="contact.html?interest=it-support" class="btn btn-accent btn-sm mt-5 self-start">Ask about onboarding and support</a>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= WORKING WITH US ================= -->
+    <section class="section" aria-labelledby="expect-title">
+      <div class="container-x grid lg:grid-cols-12 gap-10 items-start">
+        <div class="lg:col-span-5 reveal">
+          <span class="eyebrow">Working with us</span>
+          <h2 id="expect-title" class="mt-3 text-3xl lg:text-4xl font-bold text-gray-900">What you can expect from the team</h2>
+          <p class="mt-4 text-lg text-gray-600">Because we both build products and deliver services, the same people who scope your work are the ones who stay reachable after it goes live.</p>
+          <a href="about.html" class="btn btn-secondary btn-sm mt-6">More about Buddhi Labs</a>
+        </div>
+        <ul class="lg:col-span-7 grid sm:grid-cols-2 gap-4">
+          <li class="card p-6 reveal"><h3 class="font-semibold text-gray-900">A named point of contact</h3><p class="mt-2 text-sm text-gray-600">Every engagement has one person responsible for keeping you informed, from kickoff to handover.</p></li>
+          <li class="card p-6 reveal"><h3 class="font-semibold text-gray-900">Scope agreed in writing</h3><p class="mt-2 text-sm text-gray-600">Deliverables, timeline and pricing are confirmed before work starts, for products and projects alike.</p></li>
+          <li class="card p-6 reveal"><h3 class="font-semibold text-gray-900">Regular check-ins</h3><p class="mt-2 text-sm text-gray-600">Progress is shown in working software, not status reports, so you can adjust early.</p></li>
+          <li class="card p-6 reveal"><h3 class="font-semibold text-gray-900">Support during business hours</h3><p class="mt-2 text-sm text-gray-600">The team is available 10:00 AM to 5:00 PM by phone, WhatsApp and email, with onboarding and training included.</p></li>
+        </ul>
       </div>
     </section>
 
@@ -219,6 +335,18 @@
       </div>
     </section>
 
+    <!-- ================= JOIN THE TEAM ================= -->
+    <section class="section-sm bg-gray-50 border-t border-gray-100" aria-labelledby="join-title">
+      <div class="container-x card p-8 lg:p-10 grid lg:grid-cols-12 gap-8 items-center reveal">
+        <div class="lg:col-span-8">
+          <span class="eyebrow">Careers</span>
+          <h2 id="join-title" class="mt-2 text-2xl lg:text-3xl font-semibold text-gray-900">Interested in joining Buddhi Labs?</h2>
+          <p class="mt-3 text-gray-600">We are a small team based in Kathmandu and we are always glad to hear from developers, designers, marketers and support specialists who want to build practical software for organizations in Nepal. Open positions are announced on this page; speculative applications are welcome at any time.</p>
+        </div>
+        <div class="lg:col-span-4 flex lg:justify-end"><a href="contact.html?interest=careers" class="btn btn-primary">Send a speculative application</a></div>
+      </div>
+    </section>
+
     <!-- ================= CTA BANNER ================= -->
     <section class="section-sm" aria-labelledby="cta-title">
       <div class="container-x">
@@ -231,7 +359,7 @@
             </div>
             <div class="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 lg:items-stretch">
               <a href="contact.html" class="btn btn-accent btn-lg" data-track="service_inquiry_click">Contact Buddhi Labs</a>
-              <a href="contact.html?interest=general-inquiry" class="btn btn-ghost-light btn-lg" data-track="request_demo_click">Request a Demo</a>
+              <a href="contact.html?interest=demo" class="btn btn-ghost-light btn-lg" data-track="request_demo_click">Request a Demo</a>
             </div>
           </div>
         </div>

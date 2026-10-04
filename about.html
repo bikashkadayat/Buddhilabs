@@ -78,7 +78,16 @@
 
       <nav class="hidden lg:flex items-center gap-8" aria-label="Main navigation">
         <a href="index.html" class="nav-link" data-nav="index">Home</a>
-        <a href="products.html" class="nav-link" data-nav="products">Products</a>
+        <div class="nav-item" data-nav-menu>
+          <a href="products.html" class="nav-link" data-nav="products">Products</a>
+          <button type="button" class="nav-caret" aria-expanded="false" aria-controls="products-menu" aria-label="Open the Products menu"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg></button>
+          <div id="products-menu" class="nav-menu" aria-label="Products">
+            <a href="hrms.html" class="nav-menu-link"><span class="nav-menu-title">Buddhi Labs HRMS</span><span class="nav-menu-desc">Workforce, attendance, leave, tasks, documents and assets</span></a>
+            <a href="ev-risk-intelligence.html" class="nav-menu-link"><span class="nav-menu-title">EV Risk Intelligence System</span><span class="nav-menu-desc">Risk visibility for electric vehicle fleets</span></a>
+            <a href="hrms.html#pricing" class="nav-menu-link"><span class="nav-menu-title">HRMS pricing</span><span class="nav-menu-desc">Subscriptions from NPR 999 per month</span></a>
+            <a href="products.html" class="nav-menu-all">Compare both products <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg></a>
+          </div>
+        </div>
         <a href="services.html" class="nav-link" data-nav="services">Services</a>
         <a href="team.html" class="nav-link" data-nav="team">Team</a>
         <a href="about.html" class="nav-link" data-nav="about">About</a>
@@ -218,7 +227,7 @@
           <a href="team.html" class="btn btn-primary self-start lg:self-auto">Meet Our Team</a>
         </div>
         <ul class="mt-10 grid sm:grid-cols-3 gap-6">
-          <li class="card card-hover team-card p-6 flex items-center gap-4 reveal"><span class="avatar-initials avatar-initials-sm" role="img" aria-label="Bikash Kadayat, Founder and CEO of Buddhi Labs"><span aria-hidden="true">BK</span></span><div><p class="font-semibold text-gray-900">Bikash Kadayat</p><p class="text-sm text-gray-600">Founder & CEO</p></div></li>
+          <li class="card card-hover team-card p-6 flex items-center gap-4 reveal"><img src="assets/images/team/bikash-kadayat.webp" srcset="assets/images/team/bikash-kadayat.webp 1x, assets/images/team/bikash-kadayat@2x.webp 2x" alt="Bikash Kadayat, Founder and CEO of Buddhi Labs" width="400" height="400" class="avatar-photo avatar-photo-sm" loading="lazy" decoding="async"><div><p class="font-semibold text-gray-900">Bikash Kadayat</p><p class="text-sm text-gray-600">Founder & CEO</p></div></li>
           <li class="card card-hover team-card p-6 flex items-center gap-4 reveal"><span class="avatar-initials avatar-initials-sm" role="img" aria-label="Karan Rai, Chief Marketing Officer of Buddhi Labs"><span aria-hidden="true">KR</span></span><div><p class="font-semibold text-gray-900">Karan Rai</p><p class="text-sm text-gray-600">Chief Marketing Officer</p></div></li>
           <li class="card card-hover team-card p-6 flex items-center gap-4 reveal"><span class="avatar-initials avatar-initials-sm" role="img" aria-label="Nabraj Kadayat, Chief Operations Manager of Buddhi Labs"><span aria-hidden="true">NK</span></span><div><p class="font-semibold text-gray-900">Nabraj Kadayat</p><p class="text-sm text-gray-600">Chief Operations Manager</p></div></li>
         </ul>

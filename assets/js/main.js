@@ -248,6 +248,18 @@
     });
   }
 
+  /* ---------- Header dropdown (Products): hover for mouse, button for touch and keyboard ---------- */
+  document.querySelectorAll('[data-nav-menu]').forEach(function (item) {
+    var caret = item.querySelector('.nav-caret'); if (!caret) return;
+    function setOpen(open) { item.classList.toggle('is-open', open); caret.setAttribute('aria-expanded', String(open)); }
+    caret.addEventListener('click', function (e) { e.stopPropagation(); setOpen(!item.classList.contains('is-open')); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape' || !item.classList.contains('is-open')) return;
+      var inside = item.contains(document.activeElement); setOpen(false); if (inside) caret.focus();
+    });
+    document.addEventListener('click', function (e) { if (!item.contains(e.target)) setOpen(false); });
+  });
+
   /* ---------- Active nav link ---------- */
   var path = window.location.pathname.split('/').pop() || 'index.html';
   var current = path.replace('.html', '') || 'index';

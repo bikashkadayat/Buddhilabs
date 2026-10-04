@@ -78,7 +78,16 @@
 
       <nav class="hidden lg:flex items-center gap-8" aria-label="Main navigation">
         <a href="index.html" class="nav-link" data-nav="index">Home</a>
-        <a href="products.html" class="nav-link" data-nav="products">Products</a>
+        <div class="nav-item" data-nav-menu>
+          <a href="products.html" class="nav-link" data-nav="products">Products</a>
+          <button type="button" class="nav-caret" aria-expanded="false" aria-controls="products-menu" aria-label="Open the Products menu"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg></button>
+          <div id="products-menu" class="nav-menu" aria-label="Products">
+            <a href="hrms.html" class="nav-menu-link"><span class="nav-menu-title">Buddhi Labs HRMS</span><span class="nav-menu-desc">Workforce, attendance, leave, tasks, documents and assets</span></a>
+            <a href="ev-risk-intelligence.html" class="nav-menu-link"><span class="nav-menu-title">EV Risk Intelligence System</span><span class="nav-menu-desc">Risk visibility for electric vehicle fleets</span></a>
+            <a href="hrms.html#pricing" class="nav-menu-link"><span class="nav-menu-title">HRMS pricing</span><span class="nav-menu-desc">Subscriptions from NPR 999 per month</span></a>
+            <a href="products.html" class="nav-menu-all">Compare both products <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg></a>
+          </div>
+        </div>
         <a href="services.html" class="nav-link" data-nav="services">Services</a>
         <a href="team.html" class="nav-link" data-nav="team">Team</a>
         <a href="about.html" class="nav-link" data-nav="about">About</a>
@@ -122,11 +131,11 @@
       <div class="container-x relative py-16 lg:py-20">
         <nav aria-label="Breadcrumb" class="text-sm text-primary-200 mb-4"><ol class="flex flex-wrap items-center gap-2"><li><a href="index.html" class="hover:text-white">Home</a></li><li aria-hidden="true">/</li><li class="text-white" aria-current="page">Insights</li></ol></nav>
         <h1 id="page-title" class="text-4xl lg:text-5xl font-bold text-white max-w-3xl">Insights on SaaS, HRMS, EV technology and digital growth</h1>
-        <p class="mt-5 text-lg text-primary-100 max-w-2xl">Practical articles from the Buddhi Labs team. The first articles are in preparation; the titles below are drafts and will be published as they are completed.</p>
+        <p class="mt-5 text-lg text-primary-100 max-w-2xl">Practical articles from the Buddhi Labs team on HR systems, EV fleet risk, custom software, SEO and digital skills.</p>
       </div>
     </section>
 
-    <!-- ================= DRAFT INSIGHTS ================= -->
+    <!-- ================= ARTICLES ================= -->
     <section class="section" aria-labelledby="drafts-title">
       <div class="container-x">
         <div class="flex flex-wrap gap-2 mb-8" aria-label="Topics">
@@ -137,60 +146,60 @@
           <span class="badge">IT Support</span>
           <span class="badge">IT Training</span>
         </div>
-        <h2 id="drafts-title" class="sr-only">Upcoming articles</h2>
+        <h2 id="drafts-title" class="sr-only">Articles</h2>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <article class="card card-hover overflow-hidden flex flex-col reveal">
-            <div class="aspect-video bg-gray-100"><img src="assets/images/products/blog-cover.svg" alt="Placeholder cover illustration for the upcoming article Why Growing Organizations Need an HRMS" width="1200" height="675" class="w-full h-full object-cover" loading="lazy"></div>
+            <a href="why-growing-organizations-need-an-hrms.html" class="block aspect-video bg-gray-100" tabindex="-1" aria-hidden="true"><img src="assets/images/products/blog-cover.svg" alt="" width="1200" height="675" class="w-full h-full object-cover" loading="lazy"></a>
             <div class="p-6 flex flex-col flex-1">
-              <div class="flex flex-wrap gap-2"><span class="badge">HR Technology</span><span class="badge badge-accent">Coming Soon</span></div>
-              <h3 class="mt-3 font-semibold text-lg text-gray-900">Why Growing Organizations Need an HRMS</h3>
-              <p class="mt-2 text-sm text-gray-600 flex-1">What changes when a team grows past the point where spreadsheets and paper registers can keep up, and how to recognize the tipping point.</p>
-              <p class="mt-4 text-xs text-gray-500">Buddhi Labs Team · Draft Insight</p>
+              <div class="flex flex-wrap gap-2"><span class="badge">HR Technology</span></div>
+              <h3 class="mt-3 font-semibold text-lg text-gray-900"><a href="why-growing-organizations-need-an-hrms.html" class="hover:text-primary">Why Growing Organizations Need an HRMS</a></h3>
+              <p class="mt-2 text-sm text-gray-600 flex-1">The signs that spreadsheets and paper registers can no longer keep up with your workforce, what an HRMS centralizes, and how to prepare before adopting one.</p>
+              <div class="mt-4 flex items-center justify-between gap-3"><p class="text-xs text-gray-500">Buddhi Labs Team · <time datetime="2026-10-04">4 October 2026</time></p><a href="why-growing-organizations-need-an-hrms.html" class="inline-flex items-center gap-1 text-sm font-semibold text-primary">Read <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg></a></div>
             </div>
           </article>
           <article class="card card-hover overflow-hidden flex flex-col reveal">
-            <div class="aspect-video bg-gray-100"><img src="assets/images/products/blog-cover.svg" alt="Placeholder cover illustration for the upcoming article How Centralized HR Data Improves Daily Operations" width="1200" height="675" class="w-full h-full object-cover" loading="lazy"></div>
+            <a href="centralized-hr-data-daily-operations.html" class="block aspect-video bg-gray-100" tabindex="-1" aria-hidden="true"><img src="assets/images/products/blog-cover.svg" alt="" width="1200" height="675" class="w-full h-full object-cover" loading="lazy"></a>
             <div class="p-6 flex flex-col flex-1">
-              <div class="flex flex-wrap gap-2"><span class="badge">HR Technology</span><span class="badge badge-accent">Coming Soon</span></div>
-              <h3 class="mt-3 font-semibold text-lg text-gray-900">How Centralized HR Data Improves Daily Operations</h3>
-              <p class="mt-2 text-sm text-gray-600 flex-1">Why keeping employee, attendance, leave and payroll information in one place changes the way HR and management work day to day.</p>
-              <p class="mt-4 text-xs text-gray-500">Buddhi Labs Team · Draft Insight</p>
+              <div class="flex flex-wrap gap-2"><span class="badge">HR Technology</span></div>
+              <h3 class="mt-3 font-semibold text-lg text-gray-900"><a href="centralized-hr-data-daily-operations.html" class="hover:text-primary">How Centralized HR Data Improves Daily Operations</a></h3>
+              <p class="mt-2 text-sm text-gray-600 flex-1">Where HR information usually lives, the problems fragmentation causes, and the daily workflows that improve once attendance, leave, payroll inputs and records sit in one place.</p>
+              <div class="mt-4 flex items-center justify-between gap-3"><p class="text-xs text-gray-500">Buddhi Labs Team · <time datetime="2026-10-04">4 October 2026</time></p><a href="centralized-hr-data-daily-operations.html" class="inline-flex items-center gap-1 text-sm font-semibold text-primary">Read <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg></a></div>
             </div>
           </article>
           <article class="card card-hover overflow-hidden flex flex-col reveal">
-            <div class="aspect-video bg-gray-100"><img src="assets/images/products/blog-cover.svg" alt="Placeholder cover illustration for the upcoming article Understanding Risk Visibility in EV Fleet Operations" width="1200" height="675" class="w-full h-full object-cover" loading="lazy"></div>
+            <a href="risk-visibility-ev-fleet-operations.html" class="block aspect-video bg-gray-100" tabindex="-1" aria-hidden="true"><img src="assets/images/products/blog-cover.svg" alt="" width="1200" height="675" class="w-full h-full object-cover" loading="lazy"></a>
             <div class="p-6 flex flex-col flex-1">
-              <div class="flex flex-wrap gap-2"><span class="badge">EV & Mobility</span><span class="badge badge-accent">Coming Soon</span></div>
-              <h3 class="mt-3 font-semibold text-lg text-gray-900">Understanding Risk Visibility in EV Fleet Operations</h3>
-              <p class="mt-2 text-sm text-gray-600 flex-1">Why organized vehicle and risk information matters for operators, insurers and mobility organizations, and what structured visibility looks like.</p>
-              <p class="mt-4 text-xs text-gray-500">Buddhi Labs Team · Draft Insight</p>
+              <div class="flex flex-wrap gap-2"><span class="badge">EV & Mobility</span></div>
+              <h3 class="mt-3 font-semibold text-lg text-gray-900"><a href="risk-visibility-ev-fleet-operations.html" class="hover:text-primary">Understanding Risk Visibility in EV Fleet Operations</a></h3>
+              <p class="mt-2 text-sm text-gray-600 flex-1">What risk visibility means for electric vehicle fleets, the information that is usually scattered across operators, insurers and service providers, and how organizing indicators, scoring and alerts supports better decisions.</p>
+              <div class="mt-4 flex items-center justify-between gap-3"><p class="text-xs text-gray-500">Buddhi Labs Team · <time datetime="2026-10-04">4 October 2026</time></p><a href="risk-visibility-ev-fleet-operations.html" class="inline-flex items-center gap-1 text-sm font-semibold text-primary">Read <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg></a></div>
             </div>
           </article>
           <article class="card card-hover overflow-hidden flex flex-col reveal">
-            <div class="aspect-video bg-gray-100"><img src="assets/images/products/blog-cover.svg" alt="Placeholder cover illustration for the upcoming article What Businesses Should Consider Before Building Custom Software" width="1200" height="675" class="w-full h-full object-cover" loading="lazy"></div>
+            <a href="before-building-custom-software.html" class="block aspect-video bg-gray-100" tabindex="-1" aria-hidden="true"><img src="assets/images/products/blog-cover.svg" alt="" width="1200" height="675" class="w-full h-full object-cover" loading="lazy"></a>
             <div class="p-6 flex flex-col flex-1">
-              <div class="flex flex-wrap gap-2"><span class="badge">Software Development</span><span class="badge badge-accent">Coming Soon</span></div>
-              <h3 class="mt-3 font-semibold text-lg text-gray-900">What Businesses Should Consider Before Building Custom Software</h3>
-              <p class="mt-2 text-sm text-gray-600 flex-1">Questions to answer about scope, ownership, integrations and maintenance before commissioning a custom system.</p>
-              <p class="mt-4 text-xs text-gray-500">Buddhi Labs Team · Draft Insight</p>
+              <div class="flex flex-wrap gap-2"><span class="badge">Software Development</span></div>
+              <h3 class="mt-3 font-semibold text-lg text-gray-900"><a href="before-building-custom-software.html" class="hover:text-primary">What Businesses Should Consider Before Building Custom Software</a></h3>
+              <p class="mt-2 text-sm text-gray-600 flex-1">Build or buy, defining scope and ownership, integrations and data, maintenance and total cost, and how to choose a development partner: the questions to settle before commissioning custom software.</p>
+              <div class="mt-4 flex items-center justify-between gap-3"><p class="text-xs text-gray-500">Buddhi Labs Team · <time datetime="2026-10-04">4 October 2026</time></p><a href="before-building-custom-software.html" class="inline-flex items-center gap-1 text-sm font-semibold text-primary">Read <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg></a></div>
             </div>
           </article>
           <article class="card card-hover overflow-hidden flex flex-col reveal">
-            <div class="aspect-video bg-gray-100"><img src="assets/images/products/blog-cover.svg" alt="Placeholder cover illustration for the upcoming article A Practical Guide to Technical SEO for Business Websites" width="1200" height="675" class="w-full h-full object-cover" loading="lazy"></div>
+            <a href="technical-seo-for-business-websites.html" class="block aspect-video bg-gray-100" tabindex="-1" aria-hidden="true"><img src="assets/images/products/blog-cover.svg" alt="" width="1200" height="675" class="w-full h-full object-cover" loading="lazy"></a>
             <div class="p-6 flex flex-col flex-1">
-              <div class="flex flex-wrap gap-2"><span class="badge">SEO</span><span class="badge badge-accent">Coming Soon</span></div>
-              <h3 class="mt-3 font-semibold text-lg text-gray-900">A Practical Guide to Technical SEO for Business Websites</h3>
-              <p class="mt-2 text-sm text-gray-600 flex-1">Crawlability, speed, structure and the basics most business websites still miss.</p>
-              <p class="mt-4 text-xs text-gray-500">Buddhi Labs Team · Draft Insight</p>
+              <div class="flex flex-wrap gap-2"><span class="badge">SEO</span></div>
+              <h3 class="mt-3 font-semibold text-lg text-gray-900"><a href="technical-seo-for-business-websites.html" class="hover:text-primary">A Practical Guide to Technical SEO for Business Websites</a></h3>
+              <p class="mt-2 text-sm text-gray-600 flex-1">Crawlability, speed, structure and the basics most business websites still miss: a practical technical SEO checklist you can work through with your developer.</p>
+              <div class="mt-4 flex items-center justify-between gap-3"><p class="text-xs text-gray-500">Buddhi Labs Team · <time datetime="2026-10-04">4 October 2026</time></p><a href="technical-seo-for-business-websites.html" class="inline-flex items-center gap-1 text-sm font-semibold text-primary">Read <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg></a></div>
             </div>
           </article>
           <article class="card card-hover overflow-hidden flex flex-col reveal">
-            <div class="aspect-video bg-gray-100"><img src="assets/images/products/blog-cover.svg" alt="Placeholder cover illustration for the upcoming article Why IT Training Matters for Organizational Productivity" width="1200" height="675" class="w-full h-full object-cover" loading="lazy"></div>
+            <a href="why-it-training-matters.html" class="block aspect-video bg-gray-100" tabindex="-1" aria-hidden="true"><img src="assets/images/products/blog-cover.svg" alt="" width="1200" height="675" class="w-full h-full object-cover" loading="lazy"></a>
             <div class="p-6 flex flex-col flex-1">
-              <div class="flex flex-wrap gap-2"><span class="badge">IT Training</span><span class="badge badge-accent">Coming Soon</span></div>
-              <h3 class="mt-3 font-semibold text-lg text-gray-900">Why IT Training Matters for Organizational Productivity</h3>
-              <p class="mt-2 text-sm text-gray-600 flex-1">How practical digital skills and security awareness translate into fewer interruptions and more confident teams.</p>
-              <p class="mt-4 text-xs text-gray-500">Buddhi Labs Team · Draft Insight</p>
+              <div class="flex flex-wrap gap-2"><span class="badge">IT Training</span></div>
+              <h3 class="mt-3 font-semibold text-lg text-gray-900"><a href="why-it-training-matters.html" class="hover:text-primary">Why IT Training Matters for Organizational Productivity</a></h3>
+              <p class="mt-2 text-sm text-gray-600 flex-1">How practical digital skills and security awareness translate into fewer interruptions, faster processes and more confident teams, and how to plan training that sticks.</p>
+              <div class="mt-4 flex items-center justify-between gap-3"><p class="text-xs text-gray-500">Buddhi Labs Team · <time datetime="2026-10-04">4 October 2026</time></p><a href="why-it-training-matters.html" class="inline-flex items-center gap-1 text-sm font-semibold text-primary">Read <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg></a></div>
             </div>
           </article>
         </div>
