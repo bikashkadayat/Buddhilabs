@@ -329,3 +329,106 @@ h1, h2, h3, h4, .font-heading {
 .avatar-initials > span { position: relative; }
 .avatar-initials-sm { width: 3.25rem; height: 3.25rem; font-size: 1rem; box-shadow: 0 0 0 3px #DCEDE9; }
 .team-card:hover .avatar-initials { box-shadow: 0 0 0 4px #A9E4D9, 0 10px 24px -12px rgba(2,53,48,.5); }
+
+/* =====================================================================
+   Interactive enhancements (progressive; all respect prefers-reduced-motion)
+   ===================================================================== */
+/* Reading progress line under the sticky header */
+.scroll-progress {
+  position: absolute; left: 0; bottom: -1px; height: 2px; width: 100%; pointer-events: none;
+  transform-origin: left center; transform: scaleX(0);
+  background: linear-gradient(90deg, var(--brand-accent), var(--brand-accent-soft));
+}
+/* Mobile menu entrance */
+#mobile-menu:not(.hidden) { animation: menu-in .2s ease both; }
+@keyframes menu-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+
+/* Rotating hero phrase – every phrase shares one grid cell so the line never jumps */
+.rotate-words { display: inline-grid; vertical-align: bottom; }
+.rotate-words > span {
+  grid-area: 1 / 1; white-space: nowrap;
+  transition: opacity .45s ease, transform .45s ease;
+}
+.rotate-words > span[aria-hidden="true"] { opacity: 0; transform: translateY(.35em); pointer-events: none; }
+.rotate-words > span.is-leaving { opacity: 0; transform: translateY(-.35em); }
+@media (max-width: 639px) { .rotate-words > span { white-space: normal; } }
+
+/* Product showcase (hero): tab strip + cross-fading screenshots */
+.showcase-tabs { display: flex; flex-wrap: wrap; gap: .375rem; }
+.showcase-tab {
+  padding: .45rem .9rem; border-radius: 9999px; font-size: .8125rem; font-weight: 600; line-height: 1;
+  color: rgba(255,255,255,.78); background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.14);
+  transition: background-color .18s, color .18s, border-color .18s;
+}
+.showcase-tab:hover { color: #fff; background: rgba(255,255,255,.12); }
+.showcase-tab[aria-selected="true"] { background: var(--brand-accent-soft); color: var(--brand-dark); border-color: transparent; }
+.showcase-stage { position: relative; aspect-ratio: 1440 / 633; background: var(--brand-dark); }
+.screen-frame .showcase-stage img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  opacity: 0; transition: opacity .55s ease;
+}
+.screen-frame .showcase-stage img.is-active { opacity: 1; }
+/* Subtle 3D tilt that follows the pointer (desktop only, see main.js) */
+[data-tilt] { transition: transform .35s ease; will-change: transform; transform-style: preserve-3d; }
+
+/* Pointer-following spotlight on hoverable cards */
+.card-hover { position: relative; }
+.card-hover::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 0;
+  background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), rgba(47,163,145,.16), transparent 65%);
+  opacity: 0; transition: opacity .25s;
+}
+.card-hover:hover::after { opacity: 1; }
+.card-hover > * { position: relative; z-index: 1; }
+
+/* Segmented control (subscription length picker) */
+.segmented { display: inline-flex; gap: .125rem; padding: .25rem; border-radius: .75rem; background: #E6F0EE; }
+.segmented button {
+  padding: .45rem .8rem; border-radius: .5rem; font-size: .8125rem; font-weight: 600; line-height: 1;
+  color: var(--brand-muted); transition: background-color .18s, color .18s, box-shadow .18s;
+}
+.segmented button:hover { color: var(--brand-dark); }
+.segmented button[aria-checked="true"] { background: #fff; color: var(--brand-dark); box-shadow: 0 1px 2px rgba(2,53,48,.14); }
+.plan-price { transition: opacity .2s; }
+.plan-price.is-updating { opacity: .35; }
+
+/* Stat counters in the hero */
+.hero-stat { display: flex; align-items: center; gap: 1rem; }
+.hero-stat .stat-value { font-size: 2rem; color: var(--brand-accent-soft); min-width: 3ch; }
+
+/* Back-to-top button (injected by main.js) */
+.to-top {
+  position: fixed; right: 1.25rem; bottom: 1.25rem; z-index: 40; width: 2.75rem; height: 2.75rem; border-radius: 9999px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--brand-dark); color: #fff; border: 1px solid rgba(255,255,255,.14);
+  box-shadow: 0 10px 24px -10px rgba(1,34,31,.7);
+  opacity: 0; transform: translateY(12px); pointer-events: none;
+  transition: opacity .25s, transform .25s, background-color .18s;
+}
+.to-top.is-visible { opacity: 1; transform: none; pointer-events: auto; }
+.to-top:hover { background: var(--brand-primary); }
+body:has(#consent-banner) .to-top { display: none; }
+
+/* Screenshot lightbox (hrms.html gallery) */
+.lightbox-trigger { display: block; width: 100%; cursor: zoom-in; text-align: left; }
+.lightbox-trigger img { transition: transform .4s ease; }
+.lightbox-trigger:hover img { transform: scale(1.02); }
+.lightbox {
+  position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center;
+  padding: 4.5rem 1rem 4rem; background: rgba(1,34,31,.94); opacity: 0; transition: opacity .25s;
+}
+.lightbox.is-open { opacity: 1; }
+.lightbox img { max-width: min(100%, 1200px); max-height: 100%; border-radius: .75rem; box-shadow: 0 30px 60px -20px rgba(0,0,0,.7); background: #fff; }
+.lightbox-btn {
+  position: absolute; width: 2.75rem; height: 2.75rem; border-radius: 9999px; color: #fff;
+  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.16);
+  display: inline-flex; align-items: center; justify-content: center; transition: background-color .18s;
+}
+.lightbox-btn:hover { background: rgba(255,255,255,.22); }
+.lightbox-close { top: 1rem; right: 1rem; }
+.lightbox-prev { left: 1rem; top: 50%; transform: translateY(-50%); }
+.lightbox-next { right: 1rem; top: 50%; transform: translateY(-50%); }
+.lightbox-caption { position: absolute; left: 50%; bottom: 1.25rem; transform: translateX(-50%); max-width: 90%; text-align: center; color: #fff; font-size: .875rem; }
+.lightbox-caption strong { display: block; font-family: 'Poppins', sans-serif; font-weight: 600; }
+.lightbox-count { position: absolute; top: 1.4rem; left: 1.25rem; color: rgba(255,255,255,.7); font-size: .8125rem; font-weight: 600; letter-spacing: .04em; }
+body.lightbox-open { overflow: hidden; }

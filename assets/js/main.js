@@ -4,7 +4,11 @@
    - Active navigation highlighting
    - Header shadow on scroll
    - Smooth scroll for in-page anchors (with reduced-motion respect)
-   - Scroll-reveal animations (progressive enhancement)
+   - Scroll-reveal animations (progressive enhancement, staggered)
+   - Reading progress line, back-to-top button
+   - Rotating hero phrase, product showcase tabs, count-up stats
+   - Card spotlight and screenshot tilt (fine pointers only)
+   - HRMS subscription length picker, screenshot lightbox
    - Current year in footer
    No dependencies.
    ===================================================================== */
@@ -283,6 +287,14 @@
     });
   });
 
+  /* ---------- Scroll reveal: stagger siblings so grids cascade in ---------- */
+  document.querySelectorAll('.reveal').forEach(function (el) {
+    var parent = el.parentElement; if (!parent) return;
+    var siblings = Array.prototype.filter.call(parent.children, function (c) { return c.classList.contains('reveal'); });
+    if (siblings.length < 2) return;
+    el.style.transitionDelay = (Math.min(siblings.indexOf(el), 5) * 80) + 'ms';
+  });
+
   /* ---------- Scroll reveal ---------- */
   var revealEls = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window && !reduceMotion) {
@@ -297,6 +309,223 @@
     revealEls.forEach(function (el) { io.observe(el); });
   } else {
     revealEls.forEach(function (el) { el.classList.add('is-visible'); });
+  }
+
+  /* =====================================================================
+     Interactive enhancements. Every block is optional: it only runs when the
+     matching markup exists, and animation is skipped under reduced motion.
+     ===================================================================== */
+  var finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  /* ---------- Reading progress line + back-to-top button ---------- */
+  var progress = null;
+  if (header) { progress = document.createElement('span'); progress.className = 'scroll-progress'; progress.setAttribute('aria-hidden', 'true'); header.appendChild(progress); }
+  var toTop = document.createElement('button');
+  toTop.type = 'button'; toTop.className = 'to-top'; toTop.setAttribute('aria-label', 'Back to top');
+  toTop.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5"/></svg>';
+  toTop.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' }); });
+  document.body.appendChild(toTop);
+  var ticking = false;
+  function onScrollEnhance() {
+    ticking = false;
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - window.innerHeight;
+    if (progress) progress.style.transform = 'scaleX(' + (max > 0 ? Math.min(window.scrollY / max, 1) : 0) + ')';
+    toTop.classList.toggle('is-visible', window.scrollY > 600);
+  }
+  window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(onScrollEnhance); } }, { passive: true });
+  onScrollEnhance();
+
+  /* ---------- Rotating hero phrase ---------- */
+  document.querySelectorAll('[data-rotate-words]').forEach(function (wrap) {
+    var words = Array.prototype.slice.call(wrap.children);
+    if (words.length < 2 || reduceMotion) return;
+    var i = 0, timer;
+    function next() {
+      var cur = words[i]; i = (i + 1) % words.length; var nxt = words[i];
+      cur.classList.add('is-leaving');
+      setTimeout(function () { cur.setAttribute('aria-hidden', 'true'); cur.classList.remove('is-leaving'); }, 450);
+      nxt.removeAttribute('aria-hidden');
+    }
+    function start() { stop(); timer = setInterval(next, 3000); }
+    function stop() { if (timer) clearInterval(timer); timer = null; }
+    document.addEventListener('visibilitychange', function () { document.hidden ? stop() : start(); });
+    start();
+  });
+
+  /* ---------- Product showcase: tabs + autoplay + keyboard ---------- */
+  document.querySelectorAll('[data-showcase]').forEach(function (box) {
+    var tabs = Array.prototype.slice.call(box.querySelectorAll('[role="tab"]'));
+    var panels = Array.prototype.slice.call(box.querySelectorAll('[data-showcase-panel]'));
+    if (!tabs.length || tabs.length !== panels.length) return;
+    var idx = 0, timer, paused = false, delay = parseInt(box.getAttribute('data-showcase-interval') || '5000', 10);
+    function show(n, focus) {
+      idx = (n + tabs.length) % tabs.length;
+      tabs.forEach(function (t, k) {
+        var on = k === idx;
+        t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1;
+        if (on && focus) t.focus();
+      });
+      panels.forEach(function (p, k) { p.classList.toggle('is-active', k === idx); if (k === idx && p.getAttribute('loading') === 'lazy') p.loading = 'eager'; });
+    }
+    function play() { if (reduceMotion || paused) return; stop(); timer = setInterval(function () { show(idx + 1); }, delay); }
+    function stop() { if (timer) clearInterval(timer); timer = null; }
+    tabs.forEach(function (t, k) {
+      t.addEventListener('click', function () { show(k); paused = true; stop(); window.buddhiTrack('showcase_tab_click', { tab: t.getAttribute('data-tab') || k }); });
+      t.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); show(idx + 1, true); paused = true; stop(); }
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); show(idx - 1, true); paused = true; stop(); }
+        if (e.key === 'Home') { e.preventDefault(); show(0, true); }
+        if (e.key === 'End') { e.preventDefault(); show(tabs.length - 1, true); }
+      });
+    });
+    box.addEventListener('mouseenter', stop); box.addEventListener('mouseleave', play);
+    box.addEventListener('focusin', stop); box.addEventListener('focusout', play);
+    document.addEventListener('visibilitychange', function () { document.hidden ? stop() : play(); });
+    show(0); play();
+  });
+
+  /* ---------- Count-up statistics ---------- */
+  var counters = document.querySelectorAll('[data-count]');
+  function fmt(n) { return n.toLocaleString('en-US'); }
+  function runCounter(el) {
+    var target = parseFloat(el.getAttribute('data-count')) || 0, suffix = el.getAttribute('data-suffix') || '';
+    if (reduceMotion) { el.textContent = fmt(target) + suffix; return; }
+    var start = null, dur = 1200;
+    function step(ts) {
+      if (!start) start = ts;
+      var t = Math.min((ts - start) / dur, 1), eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = fmt(Math.round(target * eased)) + suffix;
+      if (t < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  if (counters.length) {
+    if ('IntersectionObserver' in window) {
+      var cio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { if (en.isIntersecting) { runCounter(en.target); cio.unobserve(en.target); } });
+      }, { threshold: 0.4 });
+      counters.forEach(function (el) { cio.observe(el); });
+    } else { counters.forEach(runCounter); }
+  }
+
+  /* ---------- Pointer spotlight on cards + 3D tilt on framed screenshots ---------- */
+  if (finePointer && !reduceMotion) {
+    document.addEventListener('pointermove', function (e) {
+      var card = e.target.closest && e.target.closest('.card-hover');
+      if (card) {
+        var r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+        card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+      }
+    }, { passive: true });
+    document.querySelectorAll('[data-tilt]').forEach(function (el) {
+      var max = parseFloat(el.getAttribute('data-tilt')) || 4;
+      el.addEventListener('pointermove', function (e) {
+        var r = el.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+        el.style.transform = 'perspective(1200px) rotateX(' + (-y * max).toFixed(2) + 'deg) rotateY(' + (x * max).toFixed(2) + 'deg)';
+      });
+      el.addEventListener('pointerleave', function () { el.style.transform = ''; });
+    });
+  }
+
+  /* ---------- Subscription length picker (HRMS plan card) ---------- */
+  document.querySelectorAll('[data-plan-picker]').forEach(function (box) {
+    var buttons = Array.prototype.slice.call(box.querySelectorAll('[role="radio"]'));
+    var priceEl = box.querySelector('[data-plan-price]'), periodEl = box.querySelector('[data-plan-period]');
+    var noteEl = box.querySelector('[data-plan-note]'), cta = box.querySelector('[data-plan-cta]');
+    var monthly = parseInt(box.getAttribute('data-monthly-price') || '999', 10);
+    if (!buttons.length || !priceEl) return;
+    function select(btn, announce) {
+      var price = parseInt(btn.getAttribute('data-price'), 10), months = parseInt(btn.getAttribute('data-months'), 10);
+      var label = btn.getAttribute('data-label'), plan = btn.getAttribute('data-plan');
+      buttons.forEach(function (b) { var on = b === btn; b.setAttribute('aria-checked', String(on)); b.tabIndex = on ? 0 : -1; });
+      priceEl.classList.add('is-updating');
+      setTimeout(function () {
+        priceEl.textContent = fmt(price); priceEl.classList.remove('is-updating');
+        if (periodEl) periodEl.textContent = months === 1 ? 'per month' : 'for ' + months + ' months';
+        if (noteEl) {
+          var save = monthly * months - price;
+          noteEl.textContent = months === 1 ? 'Pay month by month. Cancel any time at the end of a period.'
+            : 'About NPR ' + fmt(Math.round(price / months)) + ' per month · save NPR ' + fmt(save) + ' compared with paying monthly';
+        }
+        if (cta) { cta.textContent = 'Choose ' + label; cta.href = 'contact.html?interest=hrms-subscription&plan=' + encodeURIComponent(plan); cta.setAttribute('data-plan', plan); }
+      }, reduceMotion ? 0 : 160);
+      if (announce) window.buddhiTrack('hrms_plan_select', { plan: plan });
+    }
+    buttons.forEach(function (b, k) {
+      b.addEventListener('click', function () { select(b, true); });
+      b.addEventListener('keydown', function (e) {
+        var n = null;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') n = (k + 1) % buttons.length;
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') n = (k - 1 + buttons.length) % buttons.length;
+        if (n !== null) { e.preventDefault(); buttons[n].focus(); select(buttons[n], true); }
+      });
+    });
+    select(buttons.filter(function (b) { return b.getAttribute('aria-checked') === 'true'; })[0] || buttons[0], false);
+  });
+
+  /* ---------- Screenshot lightbox (figures marked data-lightbox) ---------- */
+  var figures = Array.prototype.slice.call(document.querySelectorAll('figure[data-lightbox]'));
+  if (figures.length) {
+    var lb = document.createElement('div');
+    lb.className = 'lightbox'; lb.hidden = true; lb.setAttribute('role', 'dialog'); lb.setAttribute('aria-modal', 'true'); lb.setAttribute('aria-label', 'Screenshot viewer');
+    lb.innerHTML =
+      '<span class="lightbox-count" aria-live="polite"></span>' +
+      '<button type="button" class="lightbox-btn lightbox-close" aria-label="Close"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>' +
+      '<button type="button" class="lightbox-btn lightbox-prev" aria-label="Previous screenshot"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/></svg></button>' +
+      '<img alt="">' +
+      '<button type="button" class="lightbox-btn lightbox-next" aria-label="Next screenshot"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg></button>' +
+      '<p class="lightbox-caption"></p>';
+    document.body.appendChild(lb);
+    var lbImg = lb.querySelector('img'), lbCap = lb.querySelector('.lightbox-caption'), lbCount = lb.querySelector('.lightbox-count');
+    var lbIndex = 0, lastTrigger = null;
+    function lbShow(n) {
+      lbIndex = (n + figures.length) % figures.length;
+      var fig = figures[lbIndex], img = fig.querySelector('img'), cap = fig.querySelector('figcaption');
+      lbImg.src = img.currentSrc || img.src; lbImg.alt = img.alt;
+      lbCap.innerHTML = cap ? cap.innerHTML.replace(/<h3[^>]*>/, '<strong>').replace('</h3>', '</strong>') : '';
+      lbCount.textContent = (lbIndex + 1) + ' / ' + figures.length;
+    }
+    function lbOpen(n, trigger) {
+      lastTrigger = trigger || null; lbShow(n); lb.hidden = false; document.body.classList.add('lightbox-open');
+      requestAnimationFrame(function () { lb.classList.add('is-open'); lb.querySelector('.lightbox-close').focus(); });
+      window.buddhiTrack('screenshot_open', { index: lbIndex });
+    }
+    function lbClose() {
+      lb.classList.remove('is-open'); document.body.classList.remove('lightbox-open');
+      setTimeout(function () { lb.hidden = true; if (lastTrigger) lastTrigger.focus(); }, reduceMotion ? 0 : 250);
+    }
+    figures.forEach(function (fig, k) {
+      var img = fig.querySelector('img'); if (!img) return;
+      var btn = document.createElement('button');
+      btn.type = 'button'; btn.className = 'lightbox-trigger';
+      btn.setAttribute('aria-label', 'Enlarge screenshot: ' + ((fig.querySelector('figcaption h3') || {}).textContent || img.alt));
+      img.parentNode.insertBefore(btn, img); btn.appendChild(img);
+      btn.addEventListener('click', function () { lbOpen(k, btn); });
+    });
+    lb.querySelector('.lightbox-close').addEventListener('click', lbClose);
+    lb.querySelector('.lightbox-prev').addEventListener('click', function () { lbShow(lbIndex - 1); });
+    lb.querySelector('.lightbox-next').addEventListener('click', function () { lbShow(lbIndex + 1); });
+    lb.addEventListener('click', function (e) { if (e.target === lb) lbClose(); });
+    document.addEventListener('keydown', function (e) {
+      if (lb.hidden) return;
+      if (e.key === 'Escape') lbClose();
+      if (e.key === 'ArrowRight') lbShow(lbIndex + 1);
+      if (e.key === 'ArrowLeft') lbShow(lbIndex - 1);
+      if (e.key === 'Tab') { // keep focus inside the dialog
+        var f = lb.querySelectorAll('button'); var first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+    var touchX = null;
+    lb.addEventListener('touchstart', function (e) { touchX = e.touches[0].clientX; }, { passive: true });
+    lb.addEventListener('touchend', function (e) {
+      if (touchX === null) return; var dx = e.changedTouches[0].clientX - touchX; touchX = null;
+      if (Math.abs(dx) > 50) lbShow(lbIndex + (dx < 0 ? 1 : -1));
+    }, { passive: true });
   }
 
   /* ---------- Footer year ---------- */
